@@ -1,7 +1,7 @@
 import random
 import re
+from sympy import isprime
 
-random.seed(3)
 
 class ClassRabin:
     def __init__(self,B=9):  # B como default es 9, pero puede ser propuesto por el usuario
@@ -19,7 +19,7 @@ class ClassRabin:
     def primes_3_mod_4(self):
         primes_list=[]
         for i in range(100,10000):
-            if i%4==3:
+            if i%4==3 and isprime(i):
                 primes_list.append(i)
         return random.choices(primes_list,k=2)
 
