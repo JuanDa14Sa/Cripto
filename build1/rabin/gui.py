@@ -7,7 +7,7 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Scrollbar
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -62,8 +62,8 @@ button_1 = Button(
     relief="flat"
 )
 button_1.place(
-    x=751.0,
-    y=285.0,
+    x=773.0,
+    y=242.0,
     width=277.0,
     height=65.0
 )
@@ -79,9 +79,9 @@ button_2 = Button(
 )
 button_2.place(
     x=169.0,
-    y=620.0,
+    y=597.0,
     width=260.0,
-    height=42.0
+    height=65.0
 )
 
 entry_image_1 = PhotoImage(
@@ -104,8 +104,8 @@ entry_1.place(
 )
 
 canvas.create_text(
-    56.0,
-    147.0,
+    42.0,
+    118.0,
     anchor="nw",
     text="Primo p",
     fill="#164FD5",
@@ -132,8 +132,8 @@ entry_2.place(
 )
 
 canvas.create_text(
-    57.0,
-    245.0,
+    43.0,
+    216.0,
     anchor="nw",
     text="Primo q",
     fill="#164FD5",
@@ -160,8 +160,8 @@ entry_3.place(
 )
 
 canvas.create_text(
-    56.0,
-    345.0,
+    43.0,
+    318.0,
     anchor="nw",
     text="Número n",
     fill="#164FD5",
@@ -188,8 +188,8 @@ entry_4.place(
 )
 
 canvas.create_text(
-    56.0,
-    459.0,
+    43.0,
+    422.0,
     anchor="nw",
     text="Texto claro",
     fill="#164FD5",
@@ -203,11 +203,25 @@ entry_bg_5 = canvas.create_image(
     512.0,
     image=entry_image_5
 )
+
 entry_5 = Entry(
     bd=0,
     bg="#C4C4C4",
-    highlightthickness=0
+    highlightthickness=0,
 )
+def scrollHandler(*L):
+        op, howMany = L[0], L[1]
+
+        if op == 'scroll':
+            units = L[2]
+            entry_5.xview_scroll(howMany, units)
+        elif op == 'moveto':
+            entry_5.xview_moveto(howMany)
+
+
+scrollbar=Scrollbar(orient="horizontal",command=scrollHandler)
+scrollbar.place(x=55.0,y=451.0,width=489.0,height=20.0)
+entry_5['xscrollcommand'] = scrollbar.set
 entry_5.place(
     x=736.0,
     y=451.0,
@@ -215,12 +229,15 @@ entry_5.place(
     height=120.0
 )
 
+# scrollbar.place(x=736.0,y=580.0,width=363.0,height=20.0)
+scrollbar.config(command=entry_5.xview)
+
 canvas.create_text(
-    740.0,
-    459.0,
+    723.0,
+    422.0,
     anchor="nw",
     text="Texto cifrado",
-    fill="#164FD5",
+    fill="#FFFFFF",
     font=("Inter", 24 * -1)
 )
 window.resizable(False, False)
