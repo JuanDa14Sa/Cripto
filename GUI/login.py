@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from pathlib import Path
 
 OUTPUT_PATH = Path(__file__).parent
@@ -15,7 +16,44 @@ root.resizable(0,0)
 root.title('Login')
 
 def login():
-    w=Frame(root,width=400,height=240,bg='#EFAD29')
+    canvas = Canvas(
+    root,
+    bg = "#E4E4EE",
+    height = 692-28,
+    width = 1191,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+    )
+
+    canvas.place(x = 0, y = 28)
+    canvas.create_rectangle(
+        619.0,
+        9.0,
+        1191.0,
+        692.0,
+        fill="#164FD5",
+        outline="")
+
+    canvas.create_text(
+        47.0,
+        47.0,
+        anchor="nw",
+        text="CriptoCodificadorInador",
+        fill="#000000",
+        font=("Inter", 48 * -1)
+    )
+
+    image_image_1 = PhotoImage(
+        file=relative_to_assets("image_1.png"))
+
+    image_1 = canvas.create_image(
+        306.0,
+        358.0,
+        image=image_image_1
+    )
+
+    """ w=Frame(root,width=400,height=240,bg='#EFAD29')
     w.place(x=0,y=28)
 
     #entrybox for username
@@ -74,7 +112,7 @@ def login():
         else:
             messagebox.showwarning('try again', 'retry')
     
-    Button(w,width=18,height=0,text='Login',command=log_command,border=0,bg='dark red',fg='white').place(x=130,y=146)
+    Button(w,width=18,height=0,text='Login',command=log_command,border=0,bg='dark red',fg='white').place(x=130,y=146) """
 
 #signup
 
