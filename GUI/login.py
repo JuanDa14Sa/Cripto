@@ -176,6 +176,8 @@ def signup():
 
 
 def rabin():
+
+    global button_image_1,button_image_2
     rab = ClassRabin()
 
 
@@ -331,17 +333,16 @@ def rabin():
         bg="#C4C4C4",
         highlightthickness=0,
         font={'family': 'Consolas', 'size': 11},
-        state="readonly",
-        textvariable=eText
+        textvariable=eText,
+        state='disabled'
     )
-    
     entry_3.place(
         x=55.0,
         y=345.0+28,
         width=489.0,
         height=57.0
     )
-    #entry_3.configure(state='readonly')
+    entry_3.configure(disabledbackground="#C4C4C4", disabledforeground="black")
 
     canvas.create_text(
         43.0,
@@ -399,7 +400,7 @@ def rabin():
         bd=0,
         bg="#C4C4C4",
         highlightthickness=0,
-        justify='center', #no sirve de nada pero no deja que se ponga el scrollbar que tiene líos con las imágenes
+        # justify='center', #no sirve de nada pero no deja que se ponga el scrollbar que tiene líos con las imágenes
         #padx=5,
         #pady=5,
         font={'family': 'Consolas', 'size': 12}
@@ -423,6 +424,7 @@ def rabin():
         fill="#FFFFFF",
         font=("Inter", 24 * -1)
     )
+
     """ f=Frame(root,width=400,height=240,bg='dark red')
     f.place(x=0,y=28)
 
