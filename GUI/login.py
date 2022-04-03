@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from pathlib import Path
+from rabin import ClassRabin
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -16,6 +17,8 @@ root.resizable(0,0)
 root.title('Login')
 
 def login():
+    global image_image_1
+
     canvas = Canvas(
     root,
     bg = "#E4E4EE",
@@ -52,6 +55,7 @@ def login():
         358.0,
         image=image_image_1
     )
+    #image_image_1.place(x=0,y=0)
 
     """ w=Frame(root,width=400,height=240,bg='#EFAD29')
     w.place(x=0,y=28)
@@ -172,8 +176,10 @@ def signup():
 
 
 def rabin():
-    OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+    rab = ClassRabin()
+
+
+
     canvas = Canvas(
     root,
     bg = "#E4E4EE",
@@ -208,7 +214,7 @@ def rabin():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: [rab.gen_key(), entry_1.delete(0,'end'), entry_2.delete(0,'end'), entry_3.delete(0,'end'), entry_1.insert(0,str(rab.p)), entry_2.insert(0,str(rab.q)), eText.set(str(rab.n))],
         relief="flat"
     )
     button_1.place(
@@ -234,6 +240,13 @@ def rabin():
         height=65.0
     )
 
+    def on_enter(e):
+        if entry_1.get()=='Inserte un primo válido o genere una clave':
+            entry_1.delete(0,'end')
+    def on_leave(e):
+        if entry_1.get()=='':
+            entry_1.insert(0,'Inserte un primo válido o genere una clave')
+
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
     entry_bg_1 = canvas.create_image(
@@ -247,6 +260,9 @@ def rabin():
         highlightthickness=0,
         font={'family': 'Consolas', 'size': 11}
     )
+    entry_1.bind("<FocusIn>", on_enter)
+    entry_1.bind("<FocusOut>", on_leave)
+    entry_1.insert(0,'Inserte un primo válido o genere una clave')
     entry_1.place(
         x=55.0,
         y=147.0+28,
@@ -263,6 +279,13 @@ def rabin():
         font=("Inter", 24 * -1)
     )
 
+    def on_enter(e):
+        if entry_2.get()=='Inserte un primo válido o genere una clave':
+            entry_2.delete(0,'end')
+    def on_leave(e):
+        if entry_2.get()=='':
+            entry_2.insert(0,'Inserte un primo válido o genere una clave')
+
     entry_image_2 = PhotoImage(
         file=relative_to_assets("entry_2.png"))
     entry_bg_2 = canvas.create_image(
@@ -276,6 +299,9 @@ def rabin():
         highlightthickness=0,
         font={'family': 'Consolas', 'size': 11}
     )
+    entry_2.bind("<FocusIn>", on_enter)
+    entry_2.bind("<FocusOut>", on_leave)
+    entry_2.insert(0,'Inserte un primo válido o genere una clave')
     entry_2.place(
         x=55.0,
         y=245.0+28,
@@ -299,18 +325,23 @@ def rabin():
         374.5,
         image=entry_image_3
     )
+    eText = StringVar()
     entry_3 = Entry(
         bd=0,
         bg="#C4C4C4",
         highlightthickness=0,
-        font={'family': 'Consolas', 'size': 11}
+        font={'family': 'Consolas', 'size': 11},
+        state="readonly",
+        textvariable=eText
     )
+    
     entry_3.place(
         x=55.0,
         y=345.0+28,
         width=489.0,
         height=57.0
     )
+    #entry_3.configure(state='readonly')
 
     canvas.create_text(
         43.0,
