@@ -14,8 +14,9 @@ def relative_to_assets(path: str) -> Path:
 root=Tk()
 root.geometry('1191x692')
 root.resizable(0,0)
-root.title('Login')
-
+root.title('CriptoCodificadorInador')
+icono = PhotoImage(file=relative_to_assets("icono.png"))
+root.iconphoto(False, icono)
 def login():
     global image_image_1
 
