@@ -1,3 +1,4 @@
+import random
 from tkinter import *
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -178,7 +179,7 @@ def signup():
 
 def rabin():
 
-    global button_image_1,button_image_2
+    global button_image_1,button_image_2,button_image_3
     rab = ClassRabin()
 
 
@@ -217,12 +218,12 @@ def rabin():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [rab.gen_key(), entry_1.delete(0,'end'), entry_2.delete(0,'end'), entry_3.delete(0,'end'), entry_1.insert(0,str(rab.p)), entry_2.insert(0,str(rab.q)), eText.set(str(rab.n))],
+        command=lambda: [rab.gen_key(), entry_1.delete(0,'end'), entry_2.delete(0,'end'), entry_3.delete(0,'end'),entry_6.delete(0,'end'), entry_1.insert(0,str(rab.p)), entry_2.insert(0,str(rab.q)),entry_6.insert(0,str(rab.B)), eText.set(str(rab.n))],
         relief="flat"
     )
     button_1.place(
-        x=773.0,
-        y=242.0+28,
+        x=780.0,
+        y=147.0+28,
         width=277.0,
         height=65.0
     )
@@ -241,6 +242,31 @@ def rabin():
         y=597.0+28,
         width=260.0,
         height=65.0
+    )
+
+    def calc_n():
+        rab.p=int(entry_1.get())
+        rab.q=int(entry_2.get())
+        rab.n=rab.p*rab.q
+        eText.set(str(rab.n))
+        rab.B=random.randint(1,rab.n)
+        entry_6.delete(0,'end')
+        entry_6.insert(0,str(rab.B))
+
+    button_image_3 = PhotoImage(
+        file=relative_to_assets("button_3.png"))
+    button_3 = Button(
+        image=button_image_3,
+        borderwidth=0,
+        highlightthickness=0,
+        command=calc_n,
+        relief="flat"
+    )
+    button_3.place(
+        x=806.0,
+        y=239.0+28,
+        width=236.0,
+        height=51.0
     )
 
     def on_enter(e):
@@ -408,17 +434,17 @@ def rabin():
     )
 
     scrollbar_5=Scrollbar(root,orient='vertical',command=entry_5.yview)
-    scrollbar_5.place(x=1099.0,y=451.0+28,height=120.0)
+    scrollbar_5.place(x=1120.0,y=451.0+28,height=120.0)
     entry_5.configure(yscrollcommand=scrollbar_5.set)
     entry_5.place(
-        x=736.0,
+        x=673.0,
         y=451.0+28,
-        width=363.0,
+        width=453.0,
         height=120.0
     )
     entry_5.config(state='disabled')
     canvas.create_text(
-        723.0,
+        677.0,
         422.0,
         anchor="nw",
         text="Texto cifrado",
@@ -426,6 +452,43 @@ def rabin():
         font=("Inter", 24 * -1)
     )
 
+    entry_image_6 = PhotoImage(
+    file=relative_to_assets("entry_6.png"))
+    entry_bg_4 = canvas.create_image(
+    895.5,
+    374.5,
+    image=entry_image_6
+    )
+    entry_6 = Entry(
+    bd=0,
+    bg="#C4C4C4",
+    highlightthickness=0,
+    font={'family': 'Consolas', 'size': 11}
+    )
+    entry_6.place(
+    x=673.0,
+    y=345.0+28,
+    width=445.0,
+    height=57.0
+    )
+    canvas.create_text(
+    667.0,
+    315.0,
+    anchor="nw",
+    text="Número B",
+    fill="#FFFFFF",
+    font=("Inter", 24 * -1)
+    )
+    def on_enter(e):
+        if entry_6.get()=='Inserte un número valido o genere una clave':
+            entry_6.delete(0,'end')
+    def on_leave(e):
+        if entry_6.get()=='':
+            entry_6.insert(0,'Inserte un número valido o genere una clave')
+
+    entry_6.bind("<FocusIn>", on_enter)
+    entry_6.bind("<FocusOut>", on_leave)
+    entry_6.insert(0,'Inserte un número valido o genere una clave')
     """ f=Frame(root,width=400,height=240,bg='dark red')
     f.place(x=0,y=28)
 
