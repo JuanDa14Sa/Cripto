@@ -235,11 +235,12 @@ def rabin():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print('yes')""" [
-            if isprime(entry_1.get()) and entry_1.get()%4==3:
-                rab.p=int(entry_1.get())
-            else:
-        ] """,
+        command=lambda: print('yes'),
+        # [
+        #     if isprime(entry_1.get()) and entry_1.get()%4==3:
+        #         rab.p=int(entry_1.get())
+        #     else:
+        # ]
         relief="flat"
         )
     button_2.place(
