@@ -4,10 +4,10 @@ from sympy import isprime
 
 
 class ClassRabin:
-    def __init__(self,B=9):  # B como default es 9, pero puede ser propuesto por el usuario
+    def __init__(self):  
         self.p = 0
         self.q = 0
-        self.B = B
+        self.B = 0
         self.n =0
     
     # def __init__(self,p,q,B=9):
@@ -26,6 +26,7 @@ class ClassRabin:
     def gen_key(self):
         self.p,self.q=self.primes_3_mod_4()
         self.n=self.p*self.q
+        self.B=random.randint(1,self.n)
 
     def preprocess_stringv2(self,s):
         s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
@@ -86,11 +87,11 @@ class ClassRabin:
             solutions.append((r1,r2,r3,r4))
         return solutions
 
-""" rab=ClassRabin()
-rab.gen_key()
-print(rab.p,rab.q,rab.B,rab.n)
-m='This is a proof'
-print(rab.block_convert(m,rab.n))
-s=rab.encrypt(m)
-print(s)
-print(rab.decrypt(s)) """
+# rab=ClassRabin()
+# rab.gen_key()
+# print(rab.p,rab.q,rab.B,rab.n)
+# m='This is a proof'
+# print(rab.block_convert(m,rab.n))
+# s=rab.encrypt(m)
+# print(s)
+# print(rab.decrypt(s)) 
