@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from pathlib import Path
 from rabin import ClassRabin
+from sympy import isprime
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -232,9 +233,13 @@ def rabin():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: print('yes')""" [
+            if isprime(entry_1.get()) and entry_1.get()%4==3:
+                rab.p=int(entry_1.get())
+            else:
+        ] """,
         relief="flat"
-    )
+        )
     button_2.place(
         x=169.0,
         y=597.0+28,
@@ -384,7 +389,7 @@ def rabin():
         43.0,
         422.0,
         anchor="nw",
-        text="Texto claro",
+        text="Texto claro o cifrado",
         fill="#164FD5",
         font=("Inter", 24 * -1)
     )
