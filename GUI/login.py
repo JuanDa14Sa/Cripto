@@ -1,4 +1,5 @@
 import random
+import ast
 from tkinter import *
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -228,6 +229,33 @@ def rabin():
         width=277.0,
         height=65.0
     )
+    
+    def cipherer():
+        if is_a_good_prime(entry_1.get()) and is_a_good_prime(entry_2.get()):
+            if entry_6.get().isnumeric():
+                rab.p = int(entry_1.get())
+                rab.q = int(entry_2.get())
+                rab.n=rab.p*rab.q
+                eText.set(str(rab.n))
+                temp = int(entry_6.get())
+                entry_6.delete(0,'end')
+                entry_6.insert(0, str(temp%rab.n))
+                if entry_4.get("1.0",END).replace(' ','').replace('\n','').isalpha():
+                    entry_7.config(state='normal')
+                    entry_7.delete(1.0,END)
+                    entry_7.insert(1.0,str(rab.encrypt(entry_4.get("1.0",END))))
+                    entry_7.config(state='disabled')
+                else:
+                    messagebox.showwarning("", "    ingrese un mensaje válido    ")
+            else:
+                messagebox.showwarning("", "    ingrese un valor válido de B    ")
+        else:
+            messagebox.showwarning("", "    ingrese valores primos válidos    ")
+        
+        
+
+
+
 
     button_image_2 = PhotoImage(
         file=relative_to_assets("button_2.png"))
@@ -235,29 +263,84 @@ def rabin():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print('yes'),
-        # [
-        #     if isprime(entry_1.get()) and entry_1.get()%4==3:
-        #         rab.p=int(entry_1.get())
-        #     else:
-        # ]
+        command=lambda: cipherer(),
         relief="flat"
         )
     button_2.place(
-        x=169.0,
+        x=69.0,
         y=597.0+28,
-        width=260.0,
+        width=160.0,
         height=65.0
     )
 
+    def decipherer():
+        if is_a_good_prime(entry_1.get()) and is_a_good_prime(entry_2.get()):
+            if entry_6.get().isnumeric():
+                rab.p = int(entry_1.get())
+                rab.q = int(entry_2.get())
+                rab.n=rab.p*rab.q
+                eText.set(str(rab.n))
+                temp = int(entry_6.get())
+                entry_6.delete(0,'end')
+                entry_6.insert(0, str(temp%rab.n))
+                result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n','')))
+                entry_5.config(state='normal')
+                t = ''
+                for i in range(4):
+                    for j in range(4):
+                        for k in range(4):
+                            for l in range(4):
+                                t += str(result[0][i]) + str(result[1][j]) + str(result[2][k]) + str(result[3][l])
+                            entry_5.insert(END, t+'\n')
+                            t = ''
+                entry_5.config(state='disabled')
+            else:
+                messagebox.showwarning("", "    ingrese un valor válido de B    ")
+        else:
+            messagebox.showwarning("", "    ingrese valores primos válidos    ")
+
+
+    button_image_4 = PhotoImage(
+        file=relative_to_assets("button_2.png"))
+    button_4 = Button(
+        image=button_image_2,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: decipherer(),
+        relief="flat"
+        )
+    button_4.place(
+        x=260.0,
+        y=597.0+28,
+        width=160.0,
+        height=65.0
+    )
+    
+    def is_a_good_prime(p):
+        if p.isnumeric():
+            p = int(p)
+            if p%4==3 and isprime(p):
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
     def calc_n():
-        rab.p=int(entry_1.get())
-        rab.q=int(entry_2.get())
-        rab.n=rab.p*rab.q
-        eText.set(str(rab.n))
-        rab.B=random.randint(1,rab.n)
-        entry_6.delete(0,'end')
-        entry_6.insert(0,str(rab.B))
+        if entry_1.get().isnumeric() and is_a_good_prime(entry_1.get()):
+            rab.p=int(entry_1.get())
+        if entry_2.get().isnumeric() and is_a_good_prime(entry_2.get()):
+            rab.q=int(entry_2.get())
+        if entry_1.get().isnumeric() and entry_2.get().isnumeric() and is_a_good_prime(entry_1.get()) and is_a_good_prime(entry_2.get()):
+            rab.n=rab.p*rab.q
+            eText.set(str(rab.n))
+            if entry_6.get().isnumeric():
+                temp = int(entry_6.get())
+                entry_6.delete(0,'end')
+                entry_6.insert(0, str(temp%rab.n))
+        else:
+            eText.set('Alguno de los valores no es un primo adecuado')
 
     button_image_3 = PhotoImage(
         file=relative_to_assets("button_3.png"))
@@ -436,7 +519,8 @@ def rabin():
         # justify='center', #no sirve de nada pero no deja que se ponga el scrollbar que tiene líos con las imágenes
         #padx=5,
         #pady=5,
-        font={'family': 'Consolas', 'size': 12}
+        font={'family': 'Consolas', 'size': 12},
+        wrap=CHAR
     )
 
     scrollbar_5=Scrollbar(root,orient='vertical',command=entry_5.yview)
@@ -453,7 +537,7 @@ def rabin():
         677.0,
         422.0,
         anchor="nw",
-        text="Texto cifrado",
+        text="Texto descifrado",
         fill="#FFFFFF",
         font=("Inter", 24 * -1)
     )
@@ -474,7 +558,7 @@ def rabin():
     entry_6.place(
     x=673.0,
     y=345.0+28,
-    width=445.0,
+    width=100.0,
     height=57.0
     )
     canvas.create_text(
@@ -485,16 +569,37 @@ def rabin():
     fill="#FFFFFF",
     font=("Inter", 24 * -1)
     )
-    def on_enter(e):
-        if entry_6.get()=='Inserte un número valido o genere una clave':
-            entry_6.delete(0,'end')
-    def on_leave(e):
-        if entry_6.get()=='':
-            entry_6.insert(0,'Inserte un número valido o genere una clave')
 
-    entry_6.bind("<FocusIn>", on_enter)
-    entry_6.bind("<FocusOut>", on_leave)
-    entry_6.insert(0,'Inserte un número valido o genere una clave')
+
+    entry_image_7 = PhotoImage(
+    file=relative_to_assets("entry_6.png"))
+    entry_bg_4 = canvas.create_image(
+    895.5,
+    374.5,
+    image=entry_image_6
+    )
+    entry_7 = Text(
+    bd=0,
+    bg="#C4C4C4",
+    highlightthickness=0,
+    font={'family': 'Consolas', 'size': 11}
+    )
+    entry_7.place(
+    x=673.0+100.0+53.0,
+    y=345.0+28,
+    width=300.0,
+    height=57.0
+    )
+    canvas.create_text(
+    667.0+100.0+53.0,
+    315.0,
+    anchor="nw",
+    text="Texto cifrado",
+    fill="#FFFFFF",
+    font=("Inter", 24 * -1)
+    )
+    entry_7.config(state='disabled')
+    
     """ f=Frame(root,width=400,height=240,bg='dark red')
     f.place(x=0,y=28)
 
