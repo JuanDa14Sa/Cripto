@@ -181,7 +181,7 @@ def signup():
 
 def rabin():
 
-    global button_image_1,button_image_2,button_image_3
+    global button_image_1,button_image_2,button_image_3,button_image_4
     rab = ClassRabin()
 
 
@@ -284,6 +284,8 @@ def rabin():
                 entry_6.delete(0,'end')
                 entry_6.insert(0, str(temp%rab.n))
                 result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n','')))
+                # result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n',''))) 
+                # Aqui usar rab.num_to_text(rab.decrypt) 
                 entry_5.config(state='normal')
                 t = ''
                 for i in range(4):
@@ -301,9 +303,9 @@ def rabin():
 
 
     button_image_4 = PhotoImage(
-        file=relative_to_assets("button_2.png"))
+        file=relative_to_assets("button_4.png"))
     button_4 = Button(
-        image=button_image_2,
+        image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
         command=lambda: decipherer(),
