@@ -283,16 +283,17 @@ def rabin():
                 temp = int(entry_6.get())
                 entry_6.delete(0,'end')
                 entry_6.insert(0, str(temp%rab.n))
-                result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n','')))
+                result = rab.num_to_text(rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n',''))))
                 # result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n',''))) 
                 # Aqui usar rab.num_to_text(rab.decrypt) 
                 entry_5.config(state='normal')
+                entry_5.delete('1.0',END)
                 t = ''
                 for i in range(4):
                     for j in range(4):
                         for k in range(4):
                             for l in range(4):
-                                t += str(result[0][i]) + str(result[1][j]) + str(result[2][k]) + str(result[3][l])
+                                t += str(result[0][i]) +" "+ str(result[1][j]) +" "+ str(result[2][k]) +" "+ str(result[3][l])+'\n'
                             entry_5.insert(END, t+'\n')
                             t = ''
                 entry_5.config(state='disabled')
