@@ -18,7 +18,7 @@ class ClassRabin:
 
     def primes_3_mod_4(self):
         primes_list=[]
-        for i in range(100,10000):
+        for i in range(100000,1000000):
             if i%4==3 and isprime(i):
                 primes_list.append(i)
         return random.choices(primes_list,k=2)
@@ -49,7 +49,7 @@ class ClassRabin:
             l=len(bi)
             num=0
             for i in range(l):
-                num+=((ord(bi[i])-97)+1)*27**i
+                num+=((ord(bi[i])-96))*26**i
             num_arr.append(num%n)
         return num_arr
 
@@ -61,10 +61,10 @@ class ClassRabin:
                 dec_num=[]
                 cond=True
                 while cond:
-                    dec_num.append(option%27)
-                    if option//27==0:
+                    dec_num.append(option%26)
+                    if option//26==0:
                         cond=False
-                    option//=27
+                    option//=26
                 dec_option.append(dec_num[::-1])
             dec_option=dec_option[::-1]
             final_string=[]
@@ -111,14 +111,14 @@ class ClassRabin:
             solutions.append((r1,r2,r3,r4))
         return solutions
 
-rab=ClassRabin()
-rab.gen_key()
-print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
-m='This is a proof'
-print('Texto: {}'.format(m))
-# print('Bloques: {}'.format(rab.partition(m)))
-print('Texto en bloque: {}'.format(rab.block_convert(m,rab.n)))
-s=rab.encrypt(m)
-print('Texto encriptado: {}'.format(s))
-print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
-print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
+# rab=ClassRabin()
+# rab.gen_key()
+# print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
+# m='This is a proof'
+# print('Texto: {}'.format(m))
+# # print('Bloques: {}'.format(rab.partition(m)))
+# print('Texto en bloque: {}'.format(rab.block_convert(m,rab.n)))
+# s=rab.encrypt(m)
+# print('Texto encriptado: {}'.format(s))
+# print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
+# print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
