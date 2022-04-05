@@ -31,6 +31,7 @@ class ClassRabin:
     def preprocess_stringv2(self,s):
         s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
         s=s.lower()
+        s=s[::-1]
         while len(s)%4!=0:
             s+='a'
         return s
@@ -48,9 +49,32 @@ class ClassRabin:
             l=len(bi)
             num=0
             for i in range(l):
-                num+=(ord(bi[l-i-1])-97)*26**i
+                num+=((ord(bi[i])-97)+1)*27**i
             num_arr.append(num%n)
         return num_arr
+
+    def num_to_text(self,arr):
+        all_options=[]
+        for arr_option in arr:
+            dec_option=[]
+            for option in arr_option:
+                dec_num=[]
+                cond=True
+                while cond:
+                    dec_num.append(option%27)
+                    if option//27==0:
+                        cond=False
+                    option//=27
+                dec_option.append(dec_num[::-1])
+            dec_option=dec_option[::-1]
+            final_string=[]
+            for char in dec_option:
+                s=''
+                for n in char:
+                    s+=(chr(n+96))
+                final_string.append(s)
+            all_options.append(final_string)
+        return all_options[::-1]
 
 
     def encrypt(self,m):
@@ -87,11 +111,14 @@ class ClassRabin:
             solutions.append((r1,r2,r3,r4))
         return solutions
 
-# rab=ClassRabin()
-# rab.gen_key()
-# print(rab.p,rab.q,rab.B,rab.n)
-# m='This is a proof'
-# print(rab.block_convert(m,rab.n))
-# s=rab.encrypt(m)
-# print(s)
-# print(rab.decrypt(s)) 
+rab=ClassRabin()
+rab.gen_key()
+print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
+m='This is a proof'
+print('Texto: {}'.format(m))
+# print('Bloques: {}'.format(rab.partition(m)))
+print('Texto en bloque: {}'.format(rab.block_convert(m,rab.n)))
+s=rab.encrypt(m)
+print('Texto encriptado: {}'.format(s))
+print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
+print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
