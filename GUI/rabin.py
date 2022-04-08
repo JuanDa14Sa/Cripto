@@ -18,7 +18,7 @@ class ClassRabin:
 
     def primes_3_mod_4(self):
         primes_list=[]
-        for i in range(100000,1000000):
+        for i in range(1000,100000):
             if i%4==3 and isprime(i):
                 primes_list.append(i)
         return random.choices(primes_list,k=2)
@@ -28,22 +28,43 @@ class ClassRabin:
         self.n=self.p*self.q
         self.B=random.randint(1,self.n)
 
-    def preprocess_stringv2(self,s):
+    # def preprocess_stringv2(self,s):
+    #     s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
+    #     s=s.lower()
+    #     s=s[::-1]
+    #     while len(s)%4!=0:
+    #         s+='a'
+    #     return s
+
+    # def partition(self,s,b=4): #b es el número de bloques
+    #     s=self.preprocess_stringv2(s)
+    #     k=len(s)//b #k es el tamaño de cada bloque
+    #     parts = [s[i:i+k] for i in range(0, len(s), k)]
+    #     return parts
+
+    # def block_convert(self,s,n):#n=pq 
+    #     b=self.partition(s)
+    #     num_arr=[]
+    #     for bi in b:
+    #         l=len(bi)
+    #         num=0
+    #         for i in range(l):
+    #             num+=((ord(bi[i])-96))*26**i
+    #         num_arr.append(num%n)
+    #     return num_arr
+
+
+    def preprocess_stringv3(self,s):
         s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
         s=s.lower()
-        s=s[::-1]
+        # s=s[::-1]
         while len(s)%4!=0:
             s+='a'
         return s
 
-    def partition(self,s,b=4): #b es el número de bloques
-        s=self.preprocess_stringv2(s)
-        k=len(s)//b #k es el tamaño de cada bloque
-        parts = [s[i:i+k] for i in range(0, len(s), k)]
-        return parts
-
-    def block_convert(self,s,n):#n=pq 
-        b=self.partition(s)
+    def block_convertv2(self,s,n,b=4): #Cada bloque se compone de 4 letras
+        s=self.preprocess_stringv3(s)
+        b=[s[i:i+b] for i in range(0,len(s),b)]
         num_arr=[]
         for bi in b:
             l=len(bi)
@@ -52,7 +73,6 @@ class ClassRabin:
                 num+=((ord(bi[i])-96))*26**i
             num_arr.append(num%n)
         return num_arr
-
     def num_to_text(self,arr):
         all_options=[]
         for arr_option in arr:
@@ -65,7 +85,7 @@ class ClassRabin:
                     if option//26==0:
                         cond=False
                     option//=26
-                dec_option.append(dec_num[::-1])
+                dec_option.append(dec_num)
             dec_option=dec_option[::-1]
             final_string=[]
             for char in dec_option:
@@ -78,7 +98,7 @@ class ClassRabin:
 
 
     def encrypt(self,m):
-        m=self.block_convert(m,self.n)
+        m=self.block_convertv2(m,self.n)
         m_encrypt=[(m_*(m_+self.B))%self.n for m_ in m]
         return m_encrypt
 
@@ -109,16 +129,15 @@ class ClassRabin:
             r3=(r3+b_2)%self.n
             r4=(r4+b_2)%self.n
             solutions.append((r1,r2,r3,r4))
-        return solutions
+        return solutions[::-1]
 
-# rab=ClassRabin()
-# rab.gen_key()
-# print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
-# m='This is a proof'
-# print('Texto: {}'.format(m))
-# # print('Bloques: {}'.format(rab.partition(m)))
-# print('Texto en bloque: {}'.format(rab.block_convert(m,rab.n)))
-# s=rab.encrypt(m)
-# print('Texto encriptado: {}'.format(s))
-# print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
-# print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
+rab=ClassRabin()
+rab.gen_key()
+print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
+m='This is a larger proof'
+print('Texto: {}'.format(m))
+print('Texto en bloque: {}'.format(rab.block_convertv2(m,rab.n)))
+s=rab.encrypt(m)
+print('Texto encriptado: {}'.format(s))
+print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
+print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
