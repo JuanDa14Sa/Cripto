@@ -73,6 +73,7 @@ class ClassRabin:
                 num+=((ord(bi[i])-97))*26**i
             num_arr.append(num%n)
         return num_arr
+
     def num_to_text(self,arr):
         all_options=[]
         for arr_option in arr:
@@ -86,7 +87,7 @@ class ClassRabin:
                         cond=False
                     option//=26
                 dec_option.append(dec_num)
-            dec_option=dec_option[::-1]
+            dec_option=dec_option
             final_string=[]
             for char in dec_option:
                 s=''
