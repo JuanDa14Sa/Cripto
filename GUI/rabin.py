@@ -70,7 +70,7 @@ class ClassRabin:
             l=len(bi)
             num=0
             for i in range(l):
-                num+=((ord(bi[i])-96))*26**i
+                num+=((ord(bi[i])-97))*26**i
             num_arr.append(num%n)
         return num_arr
     def num_to_text(self,arr):
@@ -91,7 +91,7 @@ class ClassRabin:
             for char in dec_option:
                 s=''
                 for n in char:
-                    s+=(chr(n+96))
+                    s+=(chr(n+97))
                 final_string.append(s)
             all_options.append(final_string)
         return all_options[::-1]
@@ -131,13 +131,13 @@ class ClassRabin:
             solutions.append((r1,r2,r3,r4))
         return solutions[::-1]
 
-rab=ClassRabin()
-rab.gen_key()
-print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
-m='This is a larger proof'
-print('Texto: {}'.format(m))
-print('Texto en bloque: {}'.format(rab.block_convertv2(m,rab.n)))
-s=rab.encrypt(m)
-print('Texto encriptado: {}'.format(s))
-print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
-print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
+# rab=ClassRabin()
+# rab.gen_key()
+# print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
+# m='This is a larger proof'
+# print('Texto: {}'.format(m))
+# print('Texto en bloque: {}'.format(rab.block_convertv2(m,rab.n)))
+# s=rab.encrypt(m)
+# print('Texto encriptado: {}'.format(s))
+# print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
+# print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
