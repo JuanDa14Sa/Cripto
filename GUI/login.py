@@ -6,6 +6,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from pathlib import Path
 from rabin import ClassRabin
 from sympy import isprime
+from numpy import cumsum
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -288,15 +289,24 @@ def rabin():
                 # Aqui usar rab.num_to_text(rab.decrypt) 
                 entry_5.config(state='normal')
                 entry_5.delete('1.0',END)
-                t = ''
-                for i in range(4):
-                    for j in range(4):
-                        for k in range(4):
-                            for l in range(4):
-                                t += str(result[0][i]) +" "+ str(result[1][j]) +" "+ str(result[2][k]) +" "+ str(result[3][l])+'\n'
-                            entry_5.insert(END, t+'\n')
-                            t = ''
+                t=''
+                block_separation=[0]
+                for i in range(len(result)):
+                    l= str(result[i][0])
+                    t += l +" " 
+                    block_separation.append(len(l))
+                print(block_separation)
+                block_separation=cumsum(block_separation)
+                print(block_separation)
+                entry_5.insert(END, t+'\n')
+                posible_colors=['black','red']
+                tag=''
+                for i in range(len(result)):
+                    tag+='a'
+                    entry_5.tag_add(tag, "1."+str(block_separation[i]), "1."+str(block_separation[i+1]+1))
+                    entry_5.tag_config(tag, foreground=posible_colors[i%2])
                 entry_5.config(state='disabled')
+                t = ''
             else:
                 messagebox.showwarning("", "    ingrese un valor válido de B    ")
         else:
