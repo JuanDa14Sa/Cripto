@@ -178,305 +178,7 @@ def signup():
 
     Button(q,width=18,height=0,text='Signup',command=entry_done,border=0,fg='purple',bg='white').place(x=130,y=174-28)
 
-def RSA():
 
-    OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path("../build1/RSA/assets")
-
-    def relative_to_assets(path: str) -> Path:
-        return ASSETS_PATH / Path(path)
-
-    global button_image_1, button_image_2, button_image_3
-
-    canvas = Canvas(
-        root,
-        bg="#E4E4EE",
-        height=692-28,
-        width=1191,
-        bd=0,
-        highlightthickness=0,
-        relief="ridge"
-    )
-
-    canvas.place(x=0, y=28)
-    canvas.create_rectangle(
-        630.0,
-        0.0,
-        1442.0,
-        1024.0,
-        fill="#164FD5",
-        outline="")
-
-    canvas.create_text(
-        42.0,
-        24.0,
-        anchor="nw",
-        text="RSA",
-        fill="#000000",
-        font=("Inter", 64 * -1)
-    )
-
-    canvas.create_text(
-        228.0,
-        74.0,
-        anchor="nw",
-        text="Privado",
-        fill="#000000",
-        font=("Inter", 36 * -1)
-    )
-
-    canvas.create_text(
-        834.0,
-        141.0,
-        anchor="nw",
-        text="Público",
-        fill="#000000",
-        font=("Inter", 36 * -1)
-    )
-
-    button_image_1 = PhotoImage(
-        file=relative_to_assets("button1.png"))
-    button_1 = Button(
-        image=button_image_1,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
-        relief="flat"
-    )
-    button_1.place(
-        x=761.0,
-        y=61.0,
-        width=277.0,
-        height=65.0
-    )
-
-    button_image_2 = PhotoImage(
-        file=relative_to_assets("button_2.png"))
-    button_2 = Button(
-        image=button_image_2,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
-        relief="flat"
-    )
-    button_2.place(
-        x=759.0,
-        y=629.0,
-        width=260.0,
-        height=65.0
-    )
-
-    button_image_3 = PhotoImage(
-        file=relative_to_assets("button_3.png"))
-    button_3 = Button(
-        image=button_image_3,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
-        relief="flat"
-    )
-    button_3.place(
-        x=169.0,
-        y=629.0,
-        width=260.0,
-        height=65.0
-    )
-
-    entry_image_1 = PhotoImage(
-        file=relative_to_assets("entry_1.png"))
-    entry_bg_1 = canvas.create_image(
-        290.5,
-        176.5,
-        image=entry_image_1
-    )
-    entry_1 = Entry(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_1.place(
-        x=46.0,
-        y=175.0,
-        width=489.0,
-        height=57.0
-    )
-
-    canvas.create_text(
-        42.0,
-        118.0,
-        anchor="nw",
-        text="Primo p",
-        fill="#164FD5",
-        font=("Inter", 24 * -1)
-    )
-
-    entry_image_2 = PhotoImage(
-        file=relative_to_assets("entry_2.png"))
-    entry_bg_2 = canvas.create_image(
-        290.5,
-        274.5,
-        image=entry_image_2
-    )
-    entry_2 = Entry(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_2.place(
-        x=46.0,
-        y=273.0,
-        width=489.0,
-        height=57.0
-    )
-
-    entry_image_3 = PhotoImage(
-        file=relative_to_assets("entry_3.png"))
-    entry_bg_3 = canvas.create_image(
-        290.5,
-        384.5,
-        image=entry_image_3
-    )
-    entry_3 = Entry(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_3.place(
-        x=46.0,
-        y=383.0,
-        width=489.0,
-        height=57.0
-    )
-
-    canvas.create_text(
-        43.0,
-        216.0,
-        anchor="nw",
-        text="Primo q",
-        fill="#164FD5",
-        font=("Inter", 24 * -1)
-    )
-
-    entry_image_4 = PhotoImage(
-        file=relative_to_assets("entry_4.png"))
-    entry_bg_4 = canvas.create_image(
-        917.5,
-        274.5,
-        image=entry_image_4
-    )
-    entry_4 = Entry(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_4.place(
-        x=673.0,
-        y=273.0,
-        width=489.0,
-        height=57.0
-    )
-
-    canvas.create_text(
-        43.0,
-        314.0,
-        anchor="nw",
-        text="Número d",
-        fill="#164FD5",
-        font=("Inter", 24 * -1)
-    )
-
-    entry_image_5 = PhotoImage(
-        file=relative_to_assets("entry_5.png"))
-    entry_bg_5 = canvas.create_image(
-        917.5,
-        372.5,
-        image=entry_image_5
-    )
-    entry_5 = Entry(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_5.place(
-        x=673.0,
-        y=371.0,
-        width=489.0,
-        height=57.0
-    )
-
-    canvas.create_text(
-        660.0,
-        207.0,
-        anchor="nw",
-        text="Número n",
-        fill="#FFFFFF",
-        font=("Inter", 24 * -1)
-    )
-
-    canvas.create_text(
-        660.0,
-        311.0,
-        anchor="nw",
-        text="Número e",
-        fill="#FFFFFF",
-        font=("Inter", 24 * -1)
-    )
-
-    entry_image_6 = PhotoImage(
-        file=relative_to_assets("entry_6.png"))
-    entry_bg_6 = canvas.create_image(
-        290.5,
-        512.0,
-        image=entry_image_6
-    )
-    entry_6 = Text(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_6.place(
-        x=46.0,
-        y=479.0,
-        width=489.0,
-        height=120.0
-    )
-
-    canvas.create_text(
-        43.0,
-        422.0,
-        anchor="nw",
-        text="Texto claro",
-        fill="#164FD5",
-        font=("Inter", 24 * -1)
-    )
-
-    entry_image_7 = PhotoImage(
-        file=relative_to_assets("entry_7.png"))
-    entry_bg_7 = canvas.create_image(
-        899.5,
-        512.0,
-        image=entry_image_7
-    )
-    entry_7 = Text(
-        bd=0,
-        bg="#C4C4C4",
-        highlightthickness=0
-    )
-    entry_7.place(
-        x=673.0,
-        y=479.0,
-        width=453.0,
-        height=120.0
-    )
-
-    canvas.create_text(
-        660.0,
-        422.0,
-        anchor="nw",
-        text="Texto cifrado",
-        fill="#FFFFFF",
-        font=("Inter", 24 * -1)
-    )
 
 def rabin():
 
@@ -528,7 +230,7 @@ def rabin():
         width=277.0,
         height=65.0
     )
-    
+
     def cipherer():
         if is_a_good_prime(entry_1.get()) and is_a_good_prime(entry_2.get()):
             if entry_6.get().isnumeric():
@@ -550,8 +252,8 @@ def rabin():
                 messagebox.showwarning("", "    ingrese un valor válido de B    ")
         else:
             messagebox.showwarning("", "    ingrese valores primos válidos    ")
-        
-        
+
+
 
 
 
@@ -583,15 +285,15 @@ def rabin():
                 entry_6.delete(0,'end')
                 entry_6.insert(0, str(temp%rab.n))
                 result = rab.num_to_text(rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n',''))))
-                # result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n',''))) 
-                # Aqui usar rab.num_to_text(rab.decrypt) 
+                # result = rab.decrypt(ast.literal_eval(entry_4.get("1.0",END).replace(' ','').replace('\n','')))
+                # Aqui usar rab.num_to_text(rab.decrypt)
                 entry_5.config(state='normal')
                 entry_5.delete('1.0',END)
                 t=''
                 block_separation=[0]
                 for i in range(len(result)):
                     l= str(result[i][0])
-                    t += l +" " 
+                    t += l +" "
                     block_separation.append(len(l))
                 print(block_separation)
                 block_separation=cumsum(block_separation)
@@ -626,7 +328,7 @@ def rabin():
         width=160.0,
         height=65.0
     )
-    
+
     def is_a_good_prime(p):
         if p.isnumeric():
             p = int(p)
@@ -910,7 +612,7 @@ def rabin():
     font=("Inter", 24 * -1)
     )
     entry_7.config(state='disabled')
-    
+
     """ f=Frame(root,width=400,height=240,bg='dark red')
     f.place(x=0,y=28)
 
@@ -960,11 +662,10 @@ def rabin():
 
     Button(f,width=18,height=0,text='Reset',command=entry_done,border=0,fg='white',bg='#EFAD29').place(x=130,y=174-28)
  """
-
 login()
 
 #Main_buttons
 Button(root,width=18,height=0,text='I N I C I O',pady=4,command=login,border=0,bg='#EFAD29',fg='white',activebackground='#EFAD29',activeforeground='white').place(x=0,y=0)
-Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=RSA,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
+Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=signup,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
 Button(root,width=19,height=0,text='R A B I N',pady=4,border=0,command=rabin,bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=266,y=0)
 root.mainloop()
