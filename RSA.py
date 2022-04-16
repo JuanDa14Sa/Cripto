@@ -56,14 +56,14 @@ class ClassRSA :
     def preprocess_stringv2(self,s):
         s=re.sub('[^a-zA-Z]',"",s)       #Elimina todo lo que no sean letras(espacios,números y otros)
         s=s.lower()
-        while len(s)%4!=0:
+        while len(s)%3!=0:
             s+='a'
         return s
 
-    def partition(self,s,b=4):
+    def partition(self,s,b=3):
         s=self.preprocess_stringv2(s)
         k=len(s)//b
-        parts = [s[i:i+k] for i in range(0, len(s), k)]
+        parts = [s[i*k:(i*k)+3] for i in range(0, k)]
         return parts
 
     def block_convert(self,s):
