@@ -9,11 +9,10 @@ from sympy import isprime
 from numpy import cumsum
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+ASSETS_PATH = OUTPUT_PATH / Path("../GUI/Main/assets")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
 
 root=Tk()
 root.geometry('1191x692')
@@ -21,7 +20,8 @@ root.resizable(0,0)
 root.title('CriptoCodificadorInador')
 icono = PhotoImage(file=relative_to_assets("icono.png"))
 root.iconphoto(False, icono)
-def login():
+
+def Main():
     global image_image_1
 
     canvas = Canvas(
@@ -123,65 +123,10 @@ def login():
     
     Button(w,width=18,height=0,text='Login',command=log_command,border=0,bg='dark red',fg='white').place(x=130,y=146) """
 
-#signup
-
-def signup():
-    q=Frame(root,width=400,height=240,bg='purple')
-    q.place(x=0,y=28)
-
-    def on_enter(e):
-        e3.delete(0,'end')
-    def on_leave(e):
-        if e3.get()=='':
-
-            e3.insert(0,'enter username')
-    #entrybox for username
-    e3 =Entry(q,width=28,fg='grey')
-    e3.config(font=('consolas',13,'bold'))
-    e3.bind("<FocusIn>", on_enter)
-    e3.bind("<FocusOut>", on_leave)
-    e3.insert(0,'enter username')
-    e3.place(x=70,y=70-28)
-
-
-
-    def on_enter(e):
-        e4.delete(0,'end')
-    def on_leave(e):
-        if e4.get()=='':
-            e4.insert(0,'enter password')
-
-    #entrybox for password
-    e4 =Entry(q,width=28,fg='grey')
-    e4.config(font=('consolas',13,'bold'))
-    e4.bind("<FocusIn>", on_enter)
-    e4.bind("<FocusOut>", on_leave)
-    e4.insert(0,'enter password')
-    e4.place(x=70,y=120-28)
-
-
-
-
-    def entry_done():
-        f1=open('username.txt','a')
-        f1.truncate(0)
-        f1.write(e3.get())
-        f1.write(' ')
-
-        f2=open('password.txt','a')
-        f2.truncate(0)
-        f2.write(e4.get())
-        f2.write(' ')
-    
-        messagebox.showinfo("", "    successfully registered    ")
-    
-
-    Button(q,width=18,height=0,text='Signup',command=entry_done,border=0,fg='purple',bg='white').place(x=130,y=174-28)
-
 def RSA():
 
     OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path("../build1/RSA/assets")
+    ASSETS_PATH = OUTPUT_PATH / Path("../GUI/RSA/assets")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -235,7 +180,7 @@ def RSA():
     )
 
     button_image_1 = PhotoImage(
-        file=relative_to_assets("button1.png"))
+        file=relative_to_assets("button_1.png"))
     button_1 = Button(
         image=button_image_1,
         borderwidth=0,
@@ -483,7 +428,11 @@ def rabin():
     global button_image_1,button_image_2,button_image_3,button_image_4
     rab = ClassRabin()
 
+    OUTPUT_PATH = Path(__file__).parent
+    ASSETS_PATH = OUTPUT_PATH / Path("../GUI/Rabin/assets")
 
+    def relative_to_assets(path: str) -> Path:
+        return ASSETS_PATH / Path(path)
 
     canvas = Canvas(
     root,
@@ -960,10 +909,11 @@ def rabin():
 
     Button(f,width=18,height=0,text='Reset',command=entry_done,border=0,fg='white',bg='#EFAD29').place(x=130,y=174-28)
  """
-login()
+
+Main()
 
 #Main_buttons
-Button(root,width=18,height=0,text='I N I C I O',pady=4,command=login,border=0,bg='#EFAD29',fg='white',activebackground='#EFAD29',activeforeground='white').place(x=0,y=0)
+Button(root, width=18, height=0, text='I N I C I O', pady=4, command=Main, border=0, bg='#EFAD29', fg='white', activebackground='#EFAD29', activeforeground='white').place(x=0, y=0)
 Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=RSA,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
 Button(root,width=19,height=0,text='R A B I N',pady=4,border=0,command=rabin,bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=266,y=0)
 root.mainloop()
