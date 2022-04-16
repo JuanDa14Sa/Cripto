@@ -964,6 +964,6 @@ login()
 
 #Main_buttons
 Button(root,width=18,height=0,text='I N I C I O',pady=4,command=login,border=0,bg='#EFAD29',fg='white',activebackground='#EFAD29',activeforeground='white').place(x=0,y=0)
-Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=signup,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
+Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=RSA,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
 Button(root,width=19,height=0,text='R A B I N',pady=4,border=0,command=rabin,bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=266,y=0)
 root.mainloop()
