@@ -1,10 +1,13 @@
 import random
 import ast
+import sys
+sys.path.insert(0,'./')
 from tkinter import *
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from pathlib import Path
-from rabin import ClassRabin
+from GUI.ElGammal.guiGammal import elGammalGUI
+from Main.rabin import ClassRabin
 from sympy import isprime
 from numpy import cumsum
 
@@ -468,7 +471,9 @@ def rabin():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [rab.gen_key(), entry_1.delete(0,'end'), entry_2.delete(0,'end'), entry_3.delete(0,'end'),entry_6.delete(0,'end'), entry_1.insert(0,str(rab.p)), entry_2.insert(0,str(rab.q)),entry_6.insert(0,str(rab.B)), eText.set(str(rab.n))],
+        command=lambda: [rab.gen_key(), entry_1.delete(0,'end'), entry_2.delete(0,'end'), entry_3.delete(0,'end'),
+        entry_6.delete(0,'end'), entry_1.insert(0,str(rab.p)), entry_2.insert(0,str(rab.q)),
+        entry_6.insert(0,str(rab.B)), eText.set(str(rab.n))],
         relief="flat"
     )
     button_1.place(
@@ -916,4 +921,5 @@ Main()
 Button(root, width=18, height=0, text='I N I C I O', pady=4, command=Main, border=0, bg='#EFAD29', fg='white', activebackground='#EFAD29', activeforeground='white').place(x=0, y=0)
 Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=RSA,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
 Button(root,width=19,height=0,text='R A B I N',pady=4,border=0,command=rabin,bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=266,y=0)
+Button(root,width=19,height=0,text='E L G A M M A L',pady=4,border=0,command=lambda:elGammalGUI(root),bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=370,y=0)
 root.mainloop()

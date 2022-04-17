@@ -27,33 +27,55 @@ class ClassRabin:
         self.p,self.q=self.primes_3_mod_4()
         self.n=self.p*self.q
 
-    def preprocess_stringv2(self,s):
+    # def preprocess_stringv2(self,s):
+    #     s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
+    #     s=s.lower()
+    #     while len(s)%4!=0:
+    #         s+='a'
+    #     return s
+
+    # def partition(self,s,b=4): #b es el número de bloques
+    #     s=self.preprocess_stringv2(s)
+    #     k=len(s)//b #k es el tamaño de cada bloque
+    #     parts = [s[i:i+k] for i in range(0, len(s), k)]
+    #     return parts
+
+
+    def preprocess_stringv3(self,s):
         s=re.sub('[^a-zA-Z]',"",s) #Elimina todo lo que no sean letras(espacios,números y otros)
         s=s.lower()
+        # s=s[::-1]
         while len(s)%4!=0:
             s+='a'
         return s
 
-    def partition(self,s,b=4): #b es el número de bloques
-        s=self.preprocess_stringv2(s)
-        k=len(s)//b #k es el tamaño de cada bloque
-        parts = [s[i:i+k] for i in range(0, len(s), k)]
-        return parts
-
-    def block_convert(self,s,n):#n=pq 
-        b=self.partition(s)
+    def block_convertv2(self,s,n,b=4): #Cada bloque se compone de 4 letras
+        s=self.preprocess_stringv3(s)
+        b=[s[i:i+b] for i in range(0,len(s),b)]
         num_arr=[]
         for bi in b:
             l=len(bi)
             num=0
             for i in range(l):
-                num+=(ord(bi[l-i-1])-97)*26**i
+                num+=((ord(bi[i])-96))*26**i
             num_arr.append(num%n)
         return num_arr
 
 
+    # def block_convert(self,s,n):#n=pq 
+    #     b=self.partition(s)
+    #     num_arr=[]
+    #     for bi in b:
+    #         l=len(bi)
+    #         num=0
+    #         for i in range(l):
+    #             num+=(ord(bi[l-i-1])-97)*26**i
+    #         num_arr.append(num%n)
+    #     return num_arr
+
+
     def encrypt(self,m):
-        m=self.block_convert(m,self.n)
+        m=self.block_convertv2(m,self.n)
         m_encrypt=[(m_*(m_+self.B))%self.n for m_ in m]
         return m_encrypt
 
@@ -88,9 +110,11 @@ class ClassRabin:
 
 rab=ClassRabin()
 rab.gen_key()
-print(rab.p,rab.q,rab.B,rab.n)
-m='This is a proof'
-print(rab.block_convert(m,rab.n))
+print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
+m='This is a very long proof'
+print('Texto: {}'.format(m))
+print('Texto en bloque: {}'.format(rab.block_convertv2(m,rab.n)))
 s=rab.encrypt(m)
-print(s)
-print(rab.decrypt(s))
+print('Texto encriptado: {}'.format(s))
+print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
+print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
