@@ -1,6 +1,9 @@
 import random
 import ast
 import sys
+
+from Main.RSA import ClassRSA
+
 sys.path.insert(0,'./')
 from tkinter import *
 from tkinter import messagebox
@@ -128,13 +131,114 @@ def Main():
 
 def RSA():
 
+    Rsa = ClassRSA();
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("../GUI/RSA/assets")
+    global button_image_1, button_image_2, button_image_3
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
-    global button_image_1, button_image_2, button_image_3
+    def if_integer(string):
+
+        if string[0] == ('-', '+'):
+            return string[1:].isdigit()
+
+        else:
+            return string.isdigit()
+
+    def is_a_good_prime(p):
+        if p.isnumeric():
+            p = int(p)
+            if p%4==3 and isprime(p):
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    def comprobar():
+        if entry_1.get()=="" or entry_2.get()=="" or entry_3.get()=="" or entry_4.get()=="" or entry_5.get()=="" :
+            messagebox.showwarning("", "No puede ir un campo vacio")
+            return False
+        if if_integer(entry_1.get()) and if_integer(entry_2.get()) and if_integer(entry_3.get()) and if_integer(entry_4.get()) and if_integer(entry_5.get()):
+            pass
+        else:
+            messagebox.showwarning("", "Verifique los campos de la clave, solo enteros")
+            return False
+        if isprime(int(entry_1.get())) and isprime(int(entry_2.get())):
+            pass
+        else:
+            messagebox.showwarning("", "P o Q no son primos")
+            return False
+        return True
+
+    def on_enter(e):
+        if entry_2.get()=='Inserte un primo válido o genere una clave':
+            entry_2.delete(0,'end')
+
+    def on_leave(e):
+        if entry_2.get()=='':
+            entry_2.insert(0,'Inserte un primo válido o genere una clave')
+
+    def borrarCampos():
+        entry_1.delete(0, "end")
+        entry_2.delete(0, "end")
+        entry_3.delete(0, "end")
+        entry_4.delete(0, "end")
+        entry_5.delete(0, "end")
+
+    def generarClave():
+        Rsa.generarKey()
+        borrarCampos()
+        entry_1.insert(0, Rsa.p)
+        entry_2.insert(0, Rsa.q)
+        entry_3.insert(0, Rsa.d)
+        entry_4.insert(0, Rsa.n)
+        entry_5.insert(0, Rsa.e)
+
+    def caputarClave():
+        Rsa.p = int(entry_1.get())
+        Rsa.q = int(entry_2.get())
+        Rsa.d = int(entry_3.get())
+        Rsa.n = int(entry_4.get())
+        Rsa.e = int(entry_5.get())
+
+    def encriptar():
+        entry_7.delete('1.0',END)
+        m = Rsa.preprocess_stringv2(entry_6.get('1.0',END))
+        if(comprobar()):
+            caputarClave()
+            if(m==""):
+                messagebox.showwarning("", "Texto a cifrar no puede ir vacio")
+            else :
+                text = Rsa.block_convert(m)
+                encr = []
+                for t in text:
+                    encr.append(Rsa.encriptar(t))
+                textEncrip = Rsa.num_to_text(encr)
+                des = "".join("".join(item) for item in textEncrip)[::-1]
+                entry_7.insert(END,des)
+        else :
+            return False
+
+    def desencriptar():
+        entry_6.delete('1.0', END)
+        m = Rsa.preprocess_stringv2(entry_7.get('1.0', END))
+        if (comprobar()):
+            caputarClave()
+            if (m == ""):
+                messagebox.showwarning("", "Texto a descifrar no puede ir vacio")
+            else:
+                text = Rsa.block_convert(m)
+                desencr = []
+                for t in text:
+                    desencr.append(Rsa.desencriptar(t))
+                textEncrip = Rsa.num_to_text(desencr)
+                des = "".join("".join(item) for item in textEncrip)
+                entry_6.insert(END, des)
+        else:
+            return False
 
     canvas = Canvas(
         root,
@@ -188,7 +292,7 @@ def RSA():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: generarClave(),
         relief="flat"
     )
     button_1.place(
@@ -204,7 +308,7 @@ def RSA():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: desencriptar(),
         relief="flat"
     )
     button_2.place(
@@ -220,7 +324,7 @@ def RSA():
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        command=lambda: encriptar(),
         relief="flat"
     )
     button_3.place(
@@ -240,13 +344,17 @@ def RSA():
     entry_1 = Entry(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
+    entry_1.bind("<FocusIn>", on_enter)
+    entry_1.bind("<FocusOut>", on_leave)
+    entry_1.insert(0, 'Inserte un primo válido o genere una clave')
     entry_1.place(
         x=46.0,
         y=175.0,
         width=489.0,
-        height=57.0
+        height=57.0,
     )
 
     canvas.create_text(
@@ -268,8 +376,12 @@ def RSA():
     entry_2 = Entry(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
+    entry_2.bind("<FocusIn>", on_enter)
+    entry_2.bind("<FocusOut>", on_leave)
+    entry_2.insert(0, 'Inserte un primo válido o genere una clave')
     entry_2.place(
         x=46.0,
         y=273.0,
@@ -287,7 +399,8 @@ def RSA():
     entry_3 = Entry(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
     entry_3.place(
         x=46.0,
@@ -315,7 +428,8 @@ def RSA():
     entry_4 = Entry(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
     entry_4.place(
         x=673.0,
@@ -343,7 +457,8 @@ def RSA():
     entry_5 = Entry(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
     entry_5.place(
         x=673.0,
@@ -380,7 +495,8 @@ def RSA():
     entry_6 = Text(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
     entry_6.place(
         x=46.0,
@@ -408,7 +524,8 @@ def RSA():
     entry_7 = Text(
         bd=0,
         bg="#C4C4C4",
-        highlightthickness=0
+        highlightthickness=0,
+        font={'family': 'Consolas', 'size': 11}
     )
     entry_7.place(
         x=673.0,
@@ -425,6 +542,7 @@ def RSA():
         fill="#FFFFFF",
         font=("Inter", 24 * -1)
     )
+
 
 def rabin():
 
