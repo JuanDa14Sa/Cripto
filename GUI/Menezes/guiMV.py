@@ -3,7 +3,9 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 
+import ast
 from pathlib import Path
+import random
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -58,13 +60,30 @@ canvas.create_text(
     font=("Inter", 64 * -1)
 )
 
+def gen_key():
+    k = random.randint(0, 70)
+    alpha = mene.points[random.randint(0,69)]
+    while alpha == 'inf':
+        alpha = mene.points[random.randint(0,69)]
+    a = random.randint(0, 30)
+    beta = mene.mult(a, alpha)
+    entry_4.delete('0','end')
+    entry_4.insert('0', str(k))
+    entry_1.delete('0','end')
+    entry_1.insert('0', str(alpha))
+    entry_2.delete('0','end')
+    entry_2.insert('0', str(a))
+    entry_3.delete('0','end')
+    entry_3.insert('0', str(beta))
+    mene.set_key(alpha,beta,a)
+
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: gen_key(),
     relief="flat"
 )
 button_1.place(
@@ -74,13 +93,23 @@ button_1.place(
     height=65.0
 )
 
+def cal_key():
+    x = entry_1.get()
+    x = ast.literal_eval(x)
+    if entry_4.get().isnumeric():
+        if entry_2.get().isnumeric():
+            beta=mene.mult(int(entry_2.get()),x)
+            mene.set_key(x,beta, int(entry_2.get()))
+            entry_3.delete('0','end')
+            entry_3.insert('0',str(beta))
+
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=lambda: cal_key(),
     relief="flat"
 )
 button_2.place(
