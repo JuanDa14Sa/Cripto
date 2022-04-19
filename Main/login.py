@@ -1,5 +1,6 @@
 import sys
 from GUI.Main.guiMain import guiMain
+from GUI.Menezes.guiMV import guiMV
 from GUI.RSA.guiRSA import guiRSA
 from tkinter import Tk, Button, PhotoImage
 from GUI.ElGammal.guiGammal import elGammalGUI
@@ -29,7 +30,7 @@ class login :
         buttonGammal = Button(self.root, width=18, height=0, text='E L G A M M A L', pady=4, border=0.5,
                               command=lambda: elGammalGUI(self.root), bg='#E4E4EE', fg='black', activeforeground='white',
                               activebackground='#508484')
-        buttonEGMV = Button(self.root, width=18, height=0, text='E G M V', pady=4, border=0.5, command=lambda: print('aaaa'),
+        buttonEGMV = Button(self.root, width=18, height=0, text='E G M V', pady=4, border=0.5, command=lambda: guiMV(self.root),
                             bg='#E4E4EE', fg='black', activeforeground='white', activebackground='#508484')
 
         buttonInicio.place(x=0, y=0)

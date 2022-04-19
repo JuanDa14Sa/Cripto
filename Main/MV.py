@@ -1,10 +1,3 @@
-
-
-def poly(x):
-      val = x**3+4*x+6
-      val = val % 71
-      return val
-
 class ClassMV:
     def __init__(self):
       self.alpha = 0
@@ -13,14 +6,14 @@ class ClassMV:
       self.k = 0
       self.points = []
       for i in range(71):
-          temp = poly(i)**35%71
+          temp = self.poly(i)**35%71
           if temp == 1:
-            val = poly(i)**18%71
+            val = self.poly(i)**18%71
             self.points.append((i,val))
             self.points.append((i,-val%71))
           self.points.append('inf')
     
-    def poly(x):
+    def poly(self,x):
       val = x**3+4*x+2
       val = val % 71
       return val
