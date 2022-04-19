@@ -79,9 +79,7 @@ class ClassMV:
       self.a = a
     
     def cifrar(self,m,k):
-      print(self.alpha, self.beta, self.a, m, k)
       y0 = self.mult(k,self.alpha)
-      print(self.mult(k,self.alpha))
       temp = self.mult(k,self.beta)
       y1 = temp[0]*m[0] %71
       y2 = temp[1]*m[1] %71

@@ -9,7 +9,9 @@ import random
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import END, Tk, Canvas, Entry, Text, Button, PhotoImage
+
+from numpy import arange
 
 from MV import ClassMV
 
@@ -135,13 +137,27 @@ button_3.place(
     height=65.0
 )
 
+def encr():
+    x = entry_5.get("1.0",END).replace(' ','').replace('\n','')
+    x = list(ast.literal_eval(x))
+    if len(x)%2 == 1:
+        x.append(0)
+    x = [(x[i], x[i + 1]) for i in arange(0, len(x), 2)]
+    temp = ''
+    for i in x:
+        temp += str(mene.cifrar((i[0],i[1]),int(entry_4.get())))+' - '
+    entry_6.delete('1.0',END)
+    entry_6.insert('1.0', temp[:-2])
+    
+    
+
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 button_4 = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=lambda: encr(),
     relief="flat"
 )
 button_4.place(
@@ -314,7 +330,7 @@ canvas.create_text(
     660.0,
     422.0,
     anchor="nw",
-    text="Lista de números separada por comas",
+    text="Lista de números separada por guiones",
     fill="#FFFFFF",
     font=("Inter", 24 * -1)
 )
