@@ -121,13 +121,26 @@ button_2.place(
     height=65.0
 )
 
+def decr():
+    x = entry_6.get("1.0",END)
+    results=list()
+    for i in x.split('-'):
+      temp = list(ast.literal_eval(i.replace(' ','').replace('\n','')))
+      de = mene.descifrar(temp[0], temp[1],temp[2])
+      results.append(de)
+    results = tuple([item for sublist in results for item in sublist])
+    entry_5.delete("1.0",END)
+    entry_5.insert('1.0', str(results))
+    
+    
+
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=lambda: decr(),
     relief="flat"
 )
 button_3.place(
@@ -141,7 +154,7 @@ def encr():
     x = entry_5.get("1.0",END).replace(' ','').replace('\n','')
     x = list(ast.literal_eval(x))
     if len(x)%2 == 1:
-        x.append(0)
+        x.append(1)
     x = [(x[i], x[i + 1]) for i in arange(0, len(x), 2)]
     temp = ''
     for i in x:
