@@ -15,7 +15,7 @@ class login :
         self.root.geometry('1191x692')
         self.root.resizable(0,0)
         self.root.title('CriptoCodificadorInador')
-        self.icono = PhotoImage(file="icono.png")
+        self.icono = PhotoImage(file="Main\icono.png")
         self.root.iconphoto(False, self.icono)
 
         t = guiMain(self.root)
