@@ -52,7 +52,6 @@ class ClassRSA :
         des = (c ** d) % n
         return des
 
-
     def preprocess_stringv2(self,s):
         s=re.sub('[^a-zA-Z]',"",s)       #Elimina todo lo que no sean letras(espacios,números y otros)
         s=s.lower()
@@ -63,7 +62,7 @@ class ClassRSA :
     def partition(self,s,b=3):
         s=self.preprocess_stringv2(s)
         k=len(s)//b
-        parts = [s[i*k:(i*k)+3] for i in range(0, k)]
+        parts = [s[i*3:(i+1)*3] for i in range(0, k)]
         return parts
 
     def block_convert(self,s):
@@ -77,3 +76,24 @@ class ClassRSA :
                 num+=(ord(bi[l-i-1])-97)*26**i
             num_arr.append(num%n)
         return num_arr
+
+    def num_to_text(self, arr):
+        all_options = []
+        for option in arr:
+            dec_option = []
+            dec_num = []
+            cond = True
+            while cond:
+                dec_num.append(option % 26)
+                if option // 26 == 0:
+                    cond = False
+                option //= 26
+            dec_option.append(dec_num)
+            final_string = []
+            for char in dec_option:
+                s = ''
+                for n in char:
+                    s += (chr(n + 97))
+                final_string.append(s)
+            all_options.append(final_string)
+        return all_options[::-1]
