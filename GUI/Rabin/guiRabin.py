@@ -10,7 +10,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from sympy import isprime
 from numpy import cumsum
 
-from rabin import ClassRabin
+from Main.rabin import ClassRabin
 
 
 def guiRabin(windows):
