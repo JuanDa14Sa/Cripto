@@ -107,14 +107,3 @@ class ClassRabin:
             r4=(r4+b_2)%self.n
             solutions.append((r1,r2,r3,r4))
         return solutions
-
-rab=ClassRabin()
-rab.gen_key()
-print('p= {}   q= {}  B= {}   n= {}'.format(rab.p,rab.q,rab.B,rab.n))
-m='This is a very long proof'
-print('Texto: {}'.format(m))
-print('Texto en bloque: {}'.format(rab.block_convertv2(m,rab.n)))
-s=rab.encrypt(m)
-print('Texto encriptado: {}'.format(s))
-print('Texto desencriptado: {}'.format(rab.decrypt(s))) 
-print('Texto desencriptado totalmente: {}'.format(rab.num_to_text(rab.decrypt(s))))
