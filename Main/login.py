@@ -915,11 +915,40 @@ def rabin():
     Button(f,width=18,height=0,text='Reset',command=entry_done,border=0,fg='white',bg='#EFAD29').place(x=130,y=174-28)
  """
 
+
+def changeOnHover(button, colorOnHover, colorOnLeave):
+  
+    # adjusting backgroung of the widget
+    # background on entering widget
+    button.bind("<Enter>", func=lambda e: button.config(
+        background=colorOnHover,fg='white'))
+  
+    # background color on leving widget
+    button.bind("<Leave>", func=lambda e: button.config(
+        background=colorOnLeave,fg='black'))
+
 Main()
 
+
+
 #Main_buttons
-Button(root, width=18, height=0, text='I N I C I O', pady=4, command=Main, border=0, bg='#EFAD29', fg='white', activebackground='#EFAD29', activeforeground='white').place(x=0, y=0)
-Button(root,width=19,height=0,text='R S A',pady=4,border=0,command=RSA,bg='purple',fg='white',activebackground='purple',activeforeground='white').place(x=130,y=0)
-Button(root,width=19,height=0,text='R A B I N',pady=4,border=0,command=rabin,bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=266,y=0)
-Button(root,width=19,height=0,text='E L G A M M A L',pady=4,border=0,command=lambda:elGammalGUI(root),bg='#E4E4EE',fg='black',activebackground='#164FD5',activeforeground='white').place(x=370,y=0)
+buttonInicio=Button(root, width=18, height=0, text='I N I C I O', pady=4, command=Main, border=0.5, bg='#E4E4EE', fg='black', activeforeground='white',activebackground='#508484')
+buttonRSA=Button(root,width=18,height=0,text='R S A',pady=4,border=0.5,command=RSA,bg='#E4E4EE',fg='black',activeforeground='white',activebackground='#508484')
+buttonRabin=Button(root,width=18,height=0,text='R A B I N',pady=4,border=0.5,command=rabin,bg='#E4E4EE',fg='black',activeforeground='white',activebackground='#508484')
+buttonGammal=Button(root,width=18,height=0,text='E L G A M M A L',pady=4,border=0.5,command=lambda:elGammalGUI(root),bg='#E4E4EE',fg='black',activeforeground='white',activebackground='#508484')
+buttonEGMV=Button(root,width=18,height=0,text='E G M V',pady=4,border=0.5,command=lambda: print('aaaa'),bg='#E4E4EE',fg='black',activeforeground='white',activebackground='#508484')
+
+buttonInicio.place(x=0,y=0)
+buttonRSA.place(x=130,y=0)
+buttonRabin.place(x=266,y=0)
+buttonGammal.place(x=400,y=0)
+buttonEGMV.place(x=535,y=0)
+
+changeOnHover(buttonInicio, "#164FD5", "#E4E4EE")
+changeOnHover(buttonRSA, "#164FD5", "#E4E4EE")
+changeOnHover(buttonRabin, "#164FD5", "#E4E4EE")
+changeOnHover(buttonGammal, "#164FD5", "#E4E4EE")
+changeOnHover(buttonEGMV, "#164FD5", "#E4E4EE")
+
+
 root.mainloop()
