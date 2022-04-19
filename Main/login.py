@@ -147,16 +147,6 @@ def RSA():
         else:
             return string.isdigit()
 
-    def is_a_good_prime(p):
-        if p.isnumeric():
-            p = int(p)
-            if p%4==3 and isprime(p):
-                return True
-            else:
-                return False
-        else:
-            return False
-
     def comprobar():
         if entry_1.get()=="" or entry_2.get()=="" or entry_3.get()=="" or entry_4.get()=="" or entry_5.get()=="" :
             messagebox.showwarning("", "No puede ir un campo vacio")
@@ -197,7 +187,7 @@ def RSA():
         entry_4.insert(0, Rsa.n)
         entry_5.insert(0, Rsa.e)
 
-    def caputarClave():
+    def capturarClave():
         Rsa.p = int(entry_1.get())
         Rsa.q = int(entry_2.get())
         Rsa.d = int(entry_3.get())
@@ -208,7 +198,7 @@ def RSA():
         entry_7.delete('1.0',END)
         m = Rsa.preprocess_stringv2(entry_6.get('1.0',END))
         if(comprobar()):
-            caputarClave()
+            capturarClave()
             if(m==""):
                 messagebox.showwarning("", "Texto a cifrar no puede ir vacio")
             else :
@@ -216,26 +206,25 @@ def RSA():
                 encr = []
                 for t in text:
                     encr.append(Rsa.encriptar(t))
-                textEncrip = Rsa.num_to_text(encr)
-                des = "".join("".join(item) for item in textEncrip)[::-1]
+                des = ','.join(map(str, encr))
                 entry_7.insert(END,des)
         else :
             return False
 
     def desencriptar():
         entry_6.delete('1.0', END)
-        m = Rsa.preprocess_stringv2(entry_7.get('1.0', END))
+        m = entry_7.get('1.0', END).replace(' ','').replace('\n','')
         if (comprobar()):
-            caputarClave()
+            capturarClave()
             if (m == ""):
                 messagebox.showwarning("", "Texto a descifrar no puede ir vacio")
             else:
-                text = Rsa.block_convert(m)
+                decrip = list(map(int,m.split(",")))
                 desencr = []
-                for t in text:
+                for t in decrip:
                     desencr.append(Rsa.desencriptar(t))
                 textEncrip = Rsa.num_to_text(desencr)
-                des = "".join("".join(item) for item in textEncrip)
+                des = "".join("".join(item) for item in textEncrip)[::-1]
                 entry_6.insert(END, des)
         else:
             return False
