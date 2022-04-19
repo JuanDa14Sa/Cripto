@@ -551,12 +551,12 @@ def rabin():
                 block_separation=cumsum(block_separation)
                 print(block_separation)
                 entry_5.insert(END, t+'\n')
-                posible_colors=['black','red']
+                # posible_colors=['black','red']
                 tag=''
-                for i in range(len(result)):
-                    tag+='a'
-                    entry_5.tag_add(tag, "1."+str(block_separation[i]), "1."+str(block_separation[i+1]+1))
-                    entry_5.tag_config(tag, foreground=posible_colors[i%2])
+                # for i in range(len(result)):
+                #     tag+='a'
+                #     entry_5.tag_add(tag, "1."+str(block_separation[i]), "1."+str(block_separation[i+1]+1))
+                #     entry_5.tag_config(tag, foreground=posible_colors[i%2])
                 entry_5.config(state='disabled')
                 t = ''
             else:
