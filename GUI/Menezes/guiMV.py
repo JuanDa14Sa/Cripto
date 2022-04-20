@@ -7,9 +7,10 @@ import ast
 from pathlib import Path
 import random
 
-# from tkinter import *
+from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import END, Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import messagebox
 
 from numpy import arange
 
@@ -39,7 +40,7 @@ def guiMV(window):
         relief = "ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x = 0, y = 28)
     canvas.create_rectangle(
         630.0,
         0.0,
@@ -125,7 +126,7 @@ def guiMV(window):
           results.append(de)
         results = tuple([item for sublist in results for item in sublist])
         entry_5.delete("1.0",END)
-        entry_5.insert('1.0', str(results))
+        entry_5.insert('1.0', str(results).replace(' ',''))
 
 
 
@@ -146,16 +147,19 @@ def guiMV(window):
     )
 
     def encr():
-        x = entry_5.get("1.0",END).replace(' ','').replace('\n','')
-        x = list(ast.literal_eval(x))
-        if len(x)%2 == 1:
-            x.append(1)
-        x = [(x[i], x[i + 1]) for i in arange(0, len(x), 2)]
-        temp = ''
-        for i in x:
-            temp += str(mene.cifrar((i[0],i[1]),int(entry_4.get())))+' - '
-        entry_6.delete('1.0',END)
-        entry_6.insert('1.0', temp[:-2])
+        if mene.alpha != 0:
+            x = entry_5.get("1.0",END).replace(' ','').replace('\n','')
+            x = list(ast.literal_eval(x))
+            if len(x)%2 == 1:
+                x.append(1)
+            x = [(x[i], x[i + 1]) for i in arange(0, len(x), 2)]
+            temp = ''
+            for i in x:
+                temp += str(mene.cifrar((i[0],i[1]),int(entry_4.get())))+' - '
+            entry_6.delete('1.0',END)
+            entry_6.insert('1.0', temp[:-2])
+        else:
+            messagebox.showwarning("", "Calcule o genere una clave primero")
 
 
 
@@ -175,6 +179,14 @@ def guiMV(window):
         height=65.0
     )
 
+    def on_enter(e):
+        if entry_1.get() == 'Inserte un punto que pertenezca a la curva elíptica':
+            entry_1.delete(0, 'end')
+
+    def on_leave(e):
+        if entry_1.get() == '':
+            entry_1.insert(0, 'Inserte un punto que pertenezca a la curva elíptica')    
+
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
     entry_bg_1 = canvas.create_image(
@@ -187,6 +199,9 @@ def guiMV(window):
         bg="#C4C4C4",
         highlightthickness=0
     )
+    entry_1.bind("<FocusIn>", on_enter)
+    entry_1.bind("<FocusOut>", on_leave)
+    entry_1.insert(0, 'Inserte un punto que pertenezca a la curva elíptica')
     entry_1.place(
         x=55.0,
         y=245.0,
@@ -194,6 +209,14 @@ def guiMV(window):
         height=57.0
     )
 
+    def on_enter(e):
+        if entry_2.get() == 'Inserte un entero positivo':
+           entry_2.delete(0, 'end')
+
+    def on_leave(e):
+        if entry_2.get() == '':
+           entry_2.insert(0, 'Inserte un entero positivo')
+            
     entry_image_2 = PhotoImage(
         file=relative_to_assets("entry_2.png"))
     entry_bg_2 = canvas.create_image(
@@ -206,6 +229,10 @@ def guiMV(window):
         bg="#C4C4C4",
         highlightthickness=0
     )
+    entry_2.bind("<FocusIn>", on_enter)
+    entry_2.bind("<FocusOut>", on_leave)
+    entry_2.insert(0, 'Inserte un entero positivo')
+    
     entry_2.place(
         x=53.0,
         y=343.0,
@@ -215,13 +242,13 @@ def guiMV(window):
 
     canvas.create_text(
         43.0,
-        216.0,
+        216.0-28,
         anchor="nw",
         text="Número alpha",
         fill="#164FD5",
         font=("Inter", 24 * -1)
     )
-
+    
     entry_image_3 = PhotoImage(
         file=relative_to_assets("entry_3.png"))
     entry_bg_3 = canvas.create_image(
@@ -243,13 +270,21 @@ def guiMV(window):
 
     canvas.create_text(
         43.0,
-        314.0,
+        314.0-28,
         anchor="nw",
         text="Número a(secreto)",
         fill="#164FD5",
         font=("Inter", 24 * -1)
     )
 
+    def on_enter(e):
+        if entry_4.get() == 'Inserte un entero menor a 71':
+            entry_4.delete(0, 'end')
+
+    def on_leave(e):
+        if entry_4.get() == '':
+            entry_4.insert(0, 'Inserte un entero menor a 71')
+    
     entry_image_4 = PhotoImage(
         file=relative_to_assets("entry_4.png"))
     entry_bg_4 = canvas.create_image(
@@ -262,6 +297,9 @@ def guiMV(window):
         bg="#C4C4C4",
         highlightthickness=0
     )
+    entry_4.bind("<FocusIn>", on_enter)
+    entry_4.bind("<FocusOut>", on_leave)
+    entry_4.insert(0, 'Inserte un entero menor a 71')
     entry_4.place(
         x=56.0,
         y=149.0,
@@ -269,9 +307,10 @@ def guiMV(window):
         height=57.0
     )
 
+
     canvas.create_text(
         668.0,
-        301.0,
+        301.0-28,
         anchor="nw",
         text="Número beta",
         fill="#FFFFFF",
@@ -280,13 +319,21 @@ def guiMV(window):
 
     canvas.create_text(
         43.0,
-        116.0,
+        116.0-28,
         anchor="nw",
         text="Número k",
         fill="#164FD5",
         font=("Inter", 24 * -1)
     )
 
+    def on_enter(e):
+        if entry_5.get("1.0",END).replace('\n','') == 'Inserte una tupla de enteros, por ejemplo (1,2,64,2,8,9)':
+           entry_5.delete('1.0', END)
+
+    def on_leave(e):
+        if entry_5.get("1.0",END).replace('\n','') == '':
+           entry_5.insert('1.0', 'Inserte una tupla de enteros, por ejemplo (1,2,64,2,8,9)')
+    
     entry_image_5 = PhotoImage(
         file=relative_to_assets("entry_5.png"))
     entry_bg_5 = canvas.create_image(
@@ -299,6 +346,9 @@ def guiMV(window):
         bg="#C4C4C4",
         highlightthickness=0
     )
+    entry_5.bind("<FocusIn>", on_enter)
+    entry_5.bind("<FocusOut>", on_leave)
+    entry_5.insert('1.0', 'Inserte una tupla de enteros, por ejemplo (1,2,64,2,8,9)')
     entry_5.place(
         x=46.0,
         y=451.0,
@@ -308,13 +358,21 @@ def guiMV(window):
 
     canvas.create_text(
         43.0,
-        422.0,
+        422.0-28,
         anchor="nw",
         text="Lista de números separada por comas",
         fill="#164FD5",
         font=("Inter", 24 * -1)
     )
 
+    def on_enter(e):
+        if entry_6.get("1.0",END).replace('\n','') == 'Inserte elementos encriptados separados por un guión -':
+           entry_6.delete('1.0', END)
+
+    def on_leave(e):
+        if entry_6.get("1.0",END).replace('\n','') == '':
+           entry_6.insert('1.0', 'Inserte elementos encriptados separados por un guión -')
+    
     entry_image_6 = PhotoImage(
         file=relative_to_assets("entry_6.png"))
     entry_bg_6 = canvas.create_image(
@@ -327,6 +385,9 @@ def guiMV(window):
         bg="#C4C4C4",
         highlightthickness=0
     )
+    entry_6.bind("<FocusIn>", on_enter)
+    entry_6.bind("<FocusOut>", on_leave)
+    entry_6.insert('1.0', 'Inserte elementos encriptados separados por un guión -')
     entry_6.place(
         x=673.0,
         y=451.0,
@@ -336,7 +397,7 @@ def guiMV(window):
 
     canvas.create_text(
         660.0,
-        422.0,
+        422.0-28,
         anchor="nw",
         text="Lista de números separada por guiones",
         fill="#FFFFFF",
