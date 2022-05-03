@@ -16,7 +16,7 @@ class ElGammal:
 
 
     def genKey(self):
-        primes_list=[i for i in range(650,10000) if isprime(i)] #El rango es para codificar el bloque sin colisión
+        primes_list=[i for i in range(676,10000) if isprime(i)] #El rango es para codificar el bloque sin colisión
         self.p=random.choice(primes_list)
         self.alpha=random.randint(1,self.p-1)
         self.private_a=random.randint(1,self.p-2)
