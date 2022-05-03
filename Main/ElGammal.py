@@ -18,17 +18,17 @@ class ElGammal:
     def genKey(self):
         primes_list=[i for i in range(650,10000) if isprime(i)] #El rango es para codificar el bloque sin colisión
         self.p=random.choice(primes_list)
-        self.alpha=random.randint(0,self.p-1)
-        self.private_a=random.randint(0,self.p-1)
+        self.alpha=random.randint(1,self.p-1)
+        self.private_a=random.randint(1,self.p-2)
         self.beta=pow(self.alpha,self.private_a,self.p)
-        self.m=random.randint(0,self.p-1)
+        self.m=random.randint(1,self.p-2)
     
     def setKey(self,p,alpha,private_a):
         self.p=p
         self.alpha=alpha%p
         self.private_a=private_a%p
         self.beta=pow(self.alpha,self.private_a,self.p)
-        self.m=random.randint(0,self.p-1)
+        self.m=random.randint(1,self.p-2)
     
 
 
@@ -40,7 +40,7 @@ class ElGammal:
             s+='a'
         return s
 
-    def block_convertv2(self,s,n,b=2): #Cada bloque se compone de 4 letras
+    def block_convertv2(self,s,n,b=2): #Cada bloque es de 2 letras
         s=self.preprocess_stringv3(s)
         # s=s[::-1]
         b=[s[i:i+b] for i in range(0,len(s),b)]
