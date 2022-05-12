@@ -49,7 +49,7 @@ class ElGammal:
             l=len(bi)
             num=0
             for i in range(l):
-                num+=((ord(bi[i])-97))*26**i
+                num+=((ord(bi[i])-96))*26**i
             num_arr.append(num%n)
         return num_arr
 
@@ -69,7 +69,7 @@ class ElGammal:
         for char in decimal_text:
             s=''
             for n in char:
-                s+=(chr(n+97))
+                s+=(chr(n+96))
             final_string.append(s)
         final_text.append(final_string)
         message=''
