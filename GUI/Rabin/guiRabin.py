@@ -2,6 +2,7 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 import ast
 from pathlib import Path
+import random
 
 from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -125,10 +126,10 @@ def guiRabin(windows):
                 # Aqui usar rab.num_to_text(rab.decrypt)
                 entry_5.config(state='normal')
                 entry_5.delete('1.0', END)
-                t = ''
+                t = '' 
                 block_separation = [0]
                 for i in range(len(result)):
-                    l = str(result[i][0])
+                    l = str(result[i][random.randint(0, len(result[i]) - 1)])
                     t += l + " "
                     block_separation.append(len(l))
                 print(block_separation)
