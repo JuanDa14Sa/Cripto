@@ -60,8 +60,11 @@ class DigitalSignatureGammal:
 sig=DigitalSignatureGammal()
 sig.gen_key()
 print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
-message='Hello World'
+# message='Hello World'
+document=open(r"Main\document.txt",'r')
+message=document.read()
+document.close()
 r,s=sig.signature(message)
 print('Firma del mensaje \n  r:  {}  \n  s:  {}'.format(r,s))
-print('Verificación de la firma: {}'.format(sig.verify('Hellow World aa',r,s)))
+print('Verificación de la firma: {}'.format(sig.verify(message+' dehniuwdui.',r,s)))
 print('Verificación de la firma: {}'.format(sig.verify(message,r,s)))
