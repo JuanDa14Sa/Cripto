@@ -24,7 +24,7 @@ class DigitalSignatureGammal:
         return self.extended_gcd(a,n)[1]
 
     def gen_key(self):
-        self.p=getPrime(256)
+        self.p=getPrime(512)
         self.alpha=random.randint(1,self.p-1)
         self.private_a=random.randint(1,self.p-2)
         self.y=pow(self.alpha,self.private_a,self.p)
@@ -60,7 +60,7 @@ class DigitalSignatureGammal:
 sig=DigitalSignatureGammal()
 sig.gen_key()
 print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
-# message='Hello World'
+
 document=open(r"Main\document.txt",'r')
 message=document.read()
 document.close()
