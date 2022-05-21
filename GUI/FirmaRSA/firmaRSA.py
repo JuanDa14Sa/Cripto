@@ -22,22 +22,24 @@ def firmaRSA(window):
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
-    def openfile():
+    def openfile(entry):
         global pathFile
-        pathFile= filedialog.askopenfilename()
+        pathFile= filedialog.askopenfilename(filetypes=(("txt files", "*.txt"),))
         if(pathFile) :
-            messagebox.showwarning("", "Se cargo el archivo")
+            messagebox.showinfo("", "Se cargo el archivo")
+            entry.insert(END, "\nArchivo "+pathFile+ " cargado")
         else:
-            messagebox.showwarning("", "no se ha cargado el archivo")
+            messagebox.showwarning("", "No se ha cargado el archivo")
         return pathFile
 
     def openfirme():
         global pathFirme
         pathFirme = filedialog.askopenfilename()
         if (pathFirme):
-            messagebox.showwarning("", "Se cargo el archivo")
+            messagebox.showinfo("", "Se cargo el archivo")
+            entry_2.insert(END, "\nFirma "+pathFirme+ " cargada")
         else:
-            messagebox.showwarning("", "no se ha cargado el archivo")
+            messagebox.showwarning("", "No se ha cargado el archivo")
         return pathFirme
 
     def firmar():
@@ -50,9 +52,9 @@ def firmaRSA(window):
             f = open("firma1.txt", "w+")
             f.write(str(s))
             f.close()
-            entry_1.insert(END, "Ya se firmo como firma1.txt")
+            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en el archivo firma1.txt")
         else:
-            messagebox.showwarning("", "no se ha cargado un archivo")
+            messagebox.showwarning("", "No se ha cargado un archivo")
 
     def comprobar():
         document = open(pathFile, 'r')
@@ -62,7 +64,7 @@ def firmaRSA(window):
         r = firma.read()
         s = int(r)
         firma.close()
-        entry_2.insert(END, sig.verify(s, message))
+        entry_2.insert(END, '\n'+sig.verify(s, message))
 
 
 
@@ -100,7 +102,7 @@ def firmaRSA(window):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: openfile(),
+        command=lambda: openfile(entry_2),
         relief="flat"
     )
     button_1.place(
@@ -116,7 +118,7 @@ def firmaRSA(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: openfile(),
+        command=lambda: openfile(entry_1),
         relief="flat"
     )
     button_2.place(
