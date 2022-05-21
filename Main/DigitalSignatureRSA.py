@@ -61,15 +61,15 @@ class DigitalSignatureRSA:
     #     return m_.to_bytes((m_.bit_length()+7)//7, 'big').decode('ASCII') ##Depende de la implementación de la función de redundancia
 
 
-sig=DigitalSignatureRSA()
-sig.gen_key()
-print('Clave pública: \n n:  {}  \n  e:  {}'.format(sig.n,sig.e))
-
-document=open(r"Main\document.txt",'r')
-message=document.read()
-document.close()
-
-s=sig.signature(message)
-print('Firma: ',s)
-print('Verificación: ',sig.verify(s,message))
-print('Verificación: ',sig.verify(s,message+'dfa.')) #Prueba de firma incorrecta
+# sig=DigitalSignatureRSA()
+# sig.gen_key()
+# print('Clave pública: \n n:  {}  \n  e:  {}'.format(sig.n,sig.e))
+#
+# document=open(r"Main\document.txt",'r')
+# message=document.read()
+# document.close()
+#
+# s=sig.signature(message)
+# print('Firma: ',s)
+# print('Verificación: ',sig.verify(s,message))
+# print('Verificación: ',sig.verify(s,message+'dfa.')) #Prueba de firma incorrecta

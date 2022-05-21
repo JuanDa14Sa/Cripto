@@ -57,14 +57,14 @@ class DigitalSignatureGammal:
             return 'Firma correcta' if v1==v2 else 'Firma incorrecta'
 
 
-sig=DigitalSignatureGammal()
-sig.gen_key()
-print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
-
-document=open(r"Main\document.txt",'r')
-message=document.read()
-document.close()
-r,s=sig.signature(message)
-print('Firma del mensaje \n  r:  {}  \n  s:  {}'.format(r,s))
-print('Verificación de la firma: {}'.format(sig.verify(message+' dehniuwdui.',r,s)))
-print('Verificación de la firma: {}'.format(sig.verify(message,r,s)))
+# sig=DigitalSignatureGammal()
+# sig.gen_key()
+# print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
+#
+# document=open(r"Main\document.txt",'r')
+# message=document.read()
+# document.close()
+# r,s=sig.signature(message)
+# print('Firma del mensaje \n  r:  {}  \n  s:  {}'.format(r,s))
+# print('Verificación de la firma: {}'.format(sig.verify(message+' dehniuwdui.',r,s)))
+# print('Verificación de la firma: {}'.format(sig.verify(message,r,s)))
