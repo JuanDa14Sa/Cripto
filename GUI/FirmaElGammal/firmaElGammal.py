@@ -25,31 +25,34 @@ def  firmaElGammal(window):
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
-    def openfile():
+    def openfile(entry):
         global pathFile
         pathFile= filedialog.askopenfilename()
         if(pathFile) :
-            messagebox.showwarning("", "Se cargo el archivo")
+            messagebox.showinfo("", "Se cargo el archivo")
+            entry.insert(END, "\nArchivo "+pathFile+ " cargado")
         else:
-            messagebox.showwarning("", "no se ha cargado el archivo")
+            messagebox.showwarning("", "No se ha cargado el archivo")
         return pathFile
 
     def openfirme1():
         global pathFirme1
         pathFirme1 = filedialog.askopenfilename()
         if (pathFirme1):
-            messagebox.showwarning("", "Se cargo el archivo")
+            messagebox.showinfo("", "Se cargo el archivo")
+            entry_2.insert(END, "\nArchivo "+pathFile+ " cargado")
         else:
-            messagebox.showwarning("", "no se ha cargado el archivo")
+            messagebox.showwarning("", "No se ha cargado el archivo")
         return pathFirme1
 
     def openfirme2():
         global pathFirme2
         pathFirme2 = filedialog.askopenfilename()
         if (pathFirme2):
-            messagebox.showwarning("", "Se cargo el archivo")
+            messagebox.showinfo("", "Se cargo el archivo")
+            entry_2.insert(END, "\nArchivo "+pathFile+ " cargado")
         else:
-            messagebox.showwarning("", "no se ha cargado el archivo")
+            messagebox.showwarning("", "No se ha cargado el archivo")
         return pathFirme2
 
     def firmar():
@@ -65,7 +68,7 @@ def  firmaElGammal(window):
             p = open("firma3.txt", "w+")
             p.write(str(s))
             p.close()
-            entry_1.insert(END, "Ya se firmo como firma2.txt y firma3.txt")
+            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en los archivos firma2.txt y firma3.txt")
         else:
             messagebox.showwarning("", "no se ha cargado un archivo")
 
@@ -81,20 +84,24 @@ def  firmaElGammal(window):
         t = firma2.read()
         s = int(t)
         firma.close()
-        entry_2.insert(END, sig.verify(message, r, s))
+        entry_2.insert(END,'\n'+sig.verify(message, r, s))
+        if (sig.verify(message, r, s) == "Firma correcta"):
+            messagebox.showinfo("", "Firma correcta")
+        else :
+            messagebox.showwarning("", "Firma incorrecta")
 
 
     canvas = Canvas(
         window,
         bg = "#E4E4EE",
-        height = 692,
+        height = 692-28,
         width = 1191,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x = 0, y = 28)
     canvas.create_rectangle(
         630.0,
         0.0,
@@ -118,7 +125,7 @@ def  firmaElGammal(window):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: openfile(),
+        command=lambda: openfile(entry_2),
         relief="flat"
     )
     button_1.place(
@@ -134,7 +141,7 @@ def  firmaElGammal(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: openfile(),
+        command=lambda: openfile(entry_1),
         relief="flat"
     )
     button_2.place(
@@ -144,22 +151,7 @@ def  firmaElGammal(window):
         height=65.0
     )
 
-    button_image_3 = PhotoImage(
-        file=relative_to_assets("button_3.png"))
-    button_3 = Button(
-        image=button_image_3,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
-        relief="flat"
-    )
-    button_3.place(
-        x=99.0,
-        y=302.0,
-        width=347.0,
-        height=65.0
-    )
-
+   
     button_image_4 = PhotoImage(
         file=relative_to_assets("button_4.png"))
     button_4 = Button(
