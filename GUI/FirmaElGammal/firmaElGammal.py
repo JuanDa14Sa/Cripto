@@ -85,6 +85,10 @@ def  firmaElGammal(window):
         s = int(t)
         firma.close()
         entry_2.insert(END,'\n'+sig.verify(message, r, s))
+        if (sig.verify(message, r, s) == "Firma correcta"):
+            messagebox.showinfo("", "Firma correcta")
+        else :
+            messagebox.showwarning("", "Firma incorrecta")
 
 
     canvas = Canvas(
