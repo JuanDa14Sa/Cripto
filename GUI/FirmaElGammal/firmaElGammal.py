@@ -90,14 +90,14 @@ def  firmaElGammal(window):
     canvas = Canvas(
         window,
         bg = "#E4E4EE",
-        height = 692,
+        height = 692-28,
         width = 1191,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x = 0, y = 28)
     canvas.create_rectangle(
         630.0,
         0.0,
