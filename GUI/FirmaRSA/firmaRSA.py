@@ -65,6 +65,10 @@ def firmaRSA(window):
         s = int(r)
         firma.close()
         entry_2.insert(END, '\n'+sig.verify(s, message))
+        if (sig.verify(s, message) == "Firma correcta"):
+            messagebox.showinfo("", "Firma correcta")
+        else:
+            messagebox.showwarning("", "Firma incorrecta")
 
 
 
