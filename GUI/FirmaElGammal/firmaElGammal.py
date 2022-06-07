@@ -152,7 +152,6 @@ def  firmaElGammal(window):
     )
 
    
-
     button_image_4 = PhotoImage(
         file=relative_to_assets("button_4.png"))
     button_4 = Button(
