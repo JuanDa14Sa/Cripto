@@ -8,6 +8,7 @@ from GUI.RSA.guiRSA import guiRSA
 from tkinter import Tk, Button, PhotoImage
 from GUI.ElGammal.guiGammal import elGammalGUI
 from GUI.Rabin.guiRabin import guiRabin
+from GUI.VSSS.guiVSSS import guiVSSS
 
 
 class login :
@@ -18,7 +19,7 @@ class login :
         self.root.geometry('1191x692')
         self.root.resizable(0,0)
         self.root.title('CriptoCodificadorInador')
-        self.icono = PhotoImage(file="icono.png")
+        self.icono = PhotoImage(file="Main\icono.png")
         self.root.iconphoto(False, self.icono)
 
         t = guiMain(self.root)
@@ -43,6 +44,9 @@ class login :
         buttonFGammal = Button(self.root, width=18, height=0, text='FIRMA GAMMAL', pady=4, border=0.5,
                             command=lambda: firmaElGammal(self.root),
                             bg='#E4E4EE', fg='black', activeforeground='white', activebackground='#508484')
+        buttonVSSS = Button(self.root, width=18, height=0, text='VSSS', pady=4, border=0.5,
+                            command=lambda: guiVSSS(self.root),
+                            bg='#E4E4EE', fg='black', activeforeground='white', activebackground='#508484')    
 
         buttonInicio.place(x=0, y=0)
         buttonRSA.place(x=130, y=0)
@@ -51,6 +55,7 @@ class login :
         buttonEGMV.place(x=535, y=0)
         buttonFRSA.place(x=670, y=0)
         buttonFGammal.place(x=805, y=0)
+        buttonVSSS.place(x=940, y=0)
 
         self.changeOnHover(buttonInicio, "#164FD5", "#E4E4EE")
         self.changeOnHover(buttonRSA, "#164FD5", "#E4E4EE")
@@ -59,6 +64,7 @@ class login :
         self.changeOnHover(buttonEGMV, "#164FD5", "#E4E4EE")
         self.changeOnHover(buttonFRSA, "#164FD5", "#E4E4EE")
         self.changeOnHover(buttonFGammal, "#164FD5", "#E4E4EE")
+        self.changeOnHover(buttonVSSS, "#164FD5", "#E4E4EE")
 
         self.root.mainloop()
 
