@@ -16,6 +16,7 @@ def firmaRSA(window):
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
     sig = DigitalSignatureRSA()
+    sig.gen_key()
 
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, button_image_6
 
@@ -44,15 +45,15 @@ def firmaRSA(window):
 
     def firmar():
         if (pathFile):
-            sig.gen_key()
+
             document = open(pathFile, 'r')
             message=document.read()
             document.close()
             s=sig.signature(message)
-            f = open("firma1.txt", "w+")
+            f = open("firmaRSA.py.txt", "w+")
             f.write(str(s))
             f.close()
-            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en el archivo firma1.txt")
+            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en el archivo firmaRSA.txt")
         else:
             messagebox.showwarning("", "No se ha cargado un archivo")
 

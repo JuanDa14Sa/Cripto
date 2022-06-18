@@ -17,6 +17,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 def  firmaElGammal(window):
 
     sig = DigitalSignatureGammal()
+    sig.gen_key()
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
@@ -57,18 +58,18 @@ def  firmaElGammal(window):
 
     def firmar():
         if (pathFile):
-            sig.gen_key()
+
             document = open(pathFile, 'r')
             message=document.read()
             document.close()
             r,s=sig.signature(message)
-            f = open("firma2.txt", "w+")
+            f = open("firmaGammal2.txt", "w+")
             f.write(str(r))
             f.close()
-            p = open("firma3.txt", "w+")
+            p = open("firmaGammal3.txt", "w+")
             p.write(str(s))
             p.close()
-            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en los archivos firma2.txt y firma3.txt")
+            entry_1.insert(END, "\nArchivo firmado correctamente.\nLa firma se encuentra en los archivos firmaGammal2.txt y firmaGammal3.txt")
         else:
             messagebox.showwarning("", "no se ha cargado un archivo")
 

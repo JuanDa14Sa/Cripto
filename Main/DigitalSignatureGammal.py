@@ -28,6 +28,7 @@ class DigitalSignatureGammal:
         self.alpha=random.randint(1,self.p-1)
         self.private_a=random.randint(1,self.p-2)
         self.y=pow(self.alpha,self.private_a,self.p)
+        print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(self.p, self.alpha, self.y))
     
     def hash_message(self,message):
         sha=SHA256.new()
@@ -59,7 +60,7 @@ class DigitalSignatureGammal:
 
 # sig=DigitalSignatureGammal()
 # sig.gen_key()
-# print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
+#print('Clave pública: \n p:  {}  \n  alpha:  {}   \n  y:  {}'.format(sig.p,sig.alpha,sig.y))
 #
 # document=open(r"Main\document.txt",'r')
 # message=document.read()

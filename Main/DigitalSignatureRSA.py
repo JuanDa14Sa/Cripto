@@ -34,6 +34,7 @@ class DigitalSignatureRSA:
             gcd=self.extended_gcd(e,phi)
         self.e=e
         self.private_d=gcd[1]%phi
+        print('Clave pública: \n n:  {}  \n  e:  {}'.format(self.n,self.e))
     
 
     def hash_message(self,message):
