@@ -8,10 +8,18 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Label, Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel, filedialog, messagebox
+
+import cv2
 from PIL import Image, ImageTk
+
+from Main.ImageEncrypt import ImageEncrypt
+
+
 def guiVSSS(window):
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+    imgEncr = ImageEncrypt()
+
 
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5
 
@@ -63,7 +71,15 @@ def guiVSSS(window):
         newWindow.mainloop()
         # mainLabel.pack()
 
+    def generateTransp():
+        im1,im2 = imgEncr.encoder(pathMainImage)
+        cv2.imwrite('img1.jpg', im1)
+        cv2.imwrite('img2.jpg', im2)
 
+
+    def overlayImages():
+        result = imgEncr.desencoder(pathFirstTransp, pathSecondTransp)
+        cv2.imwrite('result.jpg', result)
 
     canvas = Canvas(
         window,
@@ -115,7 +131,7 @@ def guiVSSS(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: generateTransp(),
         relief="flat"
     )
     button_2.place(
@@ -131,7 +147,7 @@ def guiVSSS(window):
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        command=lambda: overlayImages(),
         relief="flat"
     )
     button_3.place(
