@@ -16,31 +16,41 @@ class ImageEncrypt:
 
 
     def mat16(self,c):
-        if c == self.K:
-          temp = np.array([[self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.Y,self.K,self.Y,self.K,self.W,self.M,self.Y,self.M,self.C],[self.W,self.K,self.C,self.K,self.Y,self.K,self.W,self.K,self.Y,self.K,self.W,self.K,self.C,self.M,self.Y,self.M]])
+        K =[0,0,0]
+        W =[255,255,255]
+        R =[255,0,0]
+        G =[0,255,0]
+        B =[0,0,255]
+        Y =[255,255,0]
+        M =[255,0,255]
+        C =[0,255,255]
+        if c==K:
+          temp = np.array([[K,C,K,W,K,W,K,Y,K,Y,K,W,M,Y,M,C],[W,K,C,K,Y,K,W,K,Y,K,W,K,C,M,Y,M]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.W:
-          temp = np.array([[self.W,self.W,self.W,self.M,self.M,self.Y,self.Y,self.Y,self.C,self.C,self.K,self.K,self.K,self.K,self.K,self.K],[self.W,self.W,self.W,self.M,self.M,self.Y,self.Y,self.Y,self.C,self.C,self.K,self.K,self.K,self.K,self.K,self.K]])
+        if c==W:
+          temp = np.array([[W,W,W,M,M,Y,Y,Y,C,C,K,K,K,K,K,K],[W,W,W,M,M,Y,Y,Y,C,C,K,K,K,K,K,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.R:
-          temp = np.array([[self.Y,self.M,self.Y,self.M,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.K],[self.M,self.Y,self.M,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.Y,self.K]])
+        if c==R:
+          temp = np.array([[Y,M,Y,M,Y,W,K,C,K,C,K,W,K,W,K,K],[M,Y,M,Y,W,K,C,K,C,K,W,K,W,K,Y,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.G:
-          temp = np.array([[self.Y,self.C,self.Y,self.C,self.Y,self.W,self.K,self.M,self.K,self.M,self.K,self.W,self.K,self.W,self.K,self.K],[self.C,self.Y,self.C,self.Y,self.Y,self.K,self.M,self.K,self.M,self.K,self.W,self.K,self.W,self.K,self.W,self.K]])
+        if c==G:
+          temp = np.array([[Y,C,Y,C,Y,W,K,M,K,M,K,W,K,W,K,K],[C,Y,C,Y,Y,K,M,K,M,K,W,K,W,K,W,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.B:
-          temp = np.array([[self.M,self.C,self.M,self.C,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.W,self.K,self.W,self.K,self.K],[self.C,self.M,self.C,self.M,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.W,self.K,self.W,self.K,self.W,self.K]])
+        if c==B:
+          temp = np.array([[M,C,M,C,W,Y,K,Y,K,Y,K,W,K,W,K,K],[C,M,C,M,Y,K,Y,K,Y,K,W,K,W,K,W,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.Y:
-          temp = np.array([[self.Y,self.W,self.Y,self.W,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.M,self.K,self.M,self.K,self.K],[self.W,self.Y,self.W,self.Y,self.W,self.Y,self.C,self.K,self.C,self.K,self.M,self.K,self.M,self.K,self.K,self.K]])
+        if c==Y:
+          temp = np.array([[Y,W,Y,W,Y,W,K,C,K,C,K,M,K,M,K,K],[W,Y,W,Y,W,Y,C,K,C,K,M,K,M,K,K,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.M:
-          temp = np.array([[self.M,self.W,self.M,self.W,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.C,self.K,self.C,self.K,self.K,self.K],[self.W,self.M,self.W,self.M,self.W,self.K,self.Y,self.K,self.Y,self.K,self.K,self.C,self.K,self.C,self.K,self.Y]])
+        if c==M:
+          temp = np.array([[M,W,M,W,W,Y,K,Y,K,Y,C,K,C,K,K,K],[W,M,W,M,W,K,Y,K,Y,K,K,C,K,C,K,Y]])
           return temp[:, np.random.permutation(temp.shape[1])]
-        if c==self.C:
-          temp = np.array([[self.C,self.W,self.C,self.W,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.M,self.K,self.M,self.K,self.K],[self.W,self.C,self.W,self.C,self.W,self.K,self.Y,self.K,self.Y,self.K,self.M,self.K,self.M,self.K,self.Y,self.K]])
+        if c==C:
+          temp = np.array([[C,W,C,W,W,Y,K,Y,K,Y,K,M,K,M,K,K],[W,C,W,C,W,K,Y,K,Y,K,M,K,M,K,Y,K]])
           return temp[:, np.random.permutation(temp.shape[1])]
-
+ 
+ 
+ 
     def tone_remover(self,pixel):
         r, g, b = pixel
         if abs(255 - r) <= abs(r):
@@ -69,10 +79,7 @@ class ImageEncrypt:
         im2 = np.zeros((p.shape[0] * 4, p.shape[1] * 4, 3), np.uint8)
         for x in range(p.shape[0]):
             for y in range(p.shape[1]):
-                m = self.mat16([p[x][y][0], p[x][y][1], p[x][y][2]])
-                if m is None:
-                    print(m, x,y, p[x][y][0], p[x][y][1], p[x][y][2])
-                
+                m = self.mat16([p[x][y][0], p[x][y][1], p[x][y][2]])                
                 for i in range(4):
                     for j in range(4):
                         im1[4 * x + i][4 * y + j] = m[0][4 * i + j]
