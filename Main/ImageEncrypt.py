@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import cv
+#import cv
 
 class ImageEncrypt:
 
@@ -10,44 +10,36 @@ class ImageEncrypt:
         self.R = [255, 0, 0]
         self.G = [0, 255, 0]
         self.B = [0, 0, 255]
-        self.B = [255, 255, 0]
+        self.Y = [255, 255, 0]
         self.M = [255, 0, 255]
         self.C = [0, 255, 255]
 
 
-    def mat16(self, c):
+    def mat16(self,c):
         if c == self.K:
-            temp = np.array(
-                [[self.K, self.C, self.K, self.W, self.K, self.W, self.K, self.B, self.K, self.B, self.K, self.W, self.M, self.B, self.M, self.C], [self.W, self.K, self.C, self.K, self.B, self.K, self.W, self.K, self.B, self.K, self.W, self.K, self.C, self.M, self.B, self.M]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.W:
-            temp = np.array(
-                [[self.W, self.W, self.W, self.M, self.M, self.B, self.B, self.B, self.C, self.C, self.K, self.K, self.K, self.K, self.K, self.K], [self.W, self.W, self.W, self.M, self.M, self.B, self.B, self.B, self.C, self.C, self.K, self.K, self.K, self.K, self.K, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.R:
-            temp = np.array(
-                [[self.B, self.M, self.B, self.M, self.B, self.W, self.K, self.C, self.K, self.C, self.K, self.W, self.K, self.W, self.K, self.K], [self.M, self.B, self.M, self.B, self.W, self.K, self.C, self.K, self.C, self.K, self.W, self.K, self.W, self.K, self.B, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.G:
-            temp = np.array(
-                [[self.B, self.C, self.B, self.C, self.B, self.W, self.K, self.M, self.K, self.M, self.K, self.W, self.K, self.W, self.K, self.K], [self.C, self.B, self.C, self.B, self.B, self.K, self.M, self.K, self.M, self.K, self.W, self.K, self.W, self.K, self.W, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.B:
-            temp = np.array(
-                [[self.M, self.C, self.M, self.C, self.W, self.B, self.K, self.B, self.K, self.B, self.K, self.W, self.K, self.W, self.K, self.K], [self.C, self.M, self.C, self.M, self.B, self.K, self.B, self.K, self.B, self.K, self.W, self.K, self.W, self.K, self.W, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.B:
-            temp = np.array(
-                [[self.B, self.W, self.B, self.W, self.B, self.W, self.K, self.C, self.K, self.C, self.K, self.M, self.K, self.M, self.K, self.K], [self.W, self.B, self.W, self.B, self.W, self.B, self.C, self.K, self.C, self.K, self.M, self.K, self.M, self.K, self.K, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.M:
-            temp = np.array(
-                [[self.M, self.W, self.M, self.W, self.W, self.B, self.K, self.B, self.K, self.B, self.C, self.K, self.C, self.K, self.K, self.K], [self.W, self.M, self.W, self.M, self.W, self.K, self.B, self.K, self.B, self.K, self.K, self.C, self.K, self.C, self.K, self.B]])
-            return temp[:, np.random.permutation(temp.shape[1])]
-        if c == self.C:
-            temp = np.array(
-                [[self.C, self.W, self.C, self.W, self.W, self.B, self.K, self.B, self.K, self.B, self.K, self.M, self.K, self.M, self.K, self.K], [self.W, self.C, self.W, self.C, self.W, self.K, self.B, self.K, self.B, self.K, self.M, self.K, self.M, self.K, self.B, self.K]])
-            return temp[:, np.random.permutation(temp.shape[1])]
+          temp = np.array([[self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.Y,self.K,self.Y,self.K,self.W,self.M,self.Y,self.M,self.C],[self.W,self.K,self.C,self.K,self.Y,self.K,self.W,self.K,self.Y,self.K,self.W,self.K,self.C,self.M,self.Y,self.M]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.W:
+          temp = np.array([[self.W,self.W,self.W,self.M,self.M,self.Y,self.Y,self.Y,self.C,self.C,self.K,self.K,self.K,self.K,self.K,self.K],[self.W,self.W,self.W,self.M,self.M,self.Y,self.Y,self.Y,self.C,self.C,self.K,self.K,self.K,self.K,self.K,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.R:
+          temp = np.array([[self.Y,self.M,self.Y,self.M,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.K],[self.M,self.Y,self.M,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.W,self.K,self.W,self.K,self.Y,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.G:
+          temp = np.array([[self.Y,self.C,self.Y,self.C,self.Y,self.W,self.K,self.M,self.K,self.M,self.K,self.W,self.K,self.W,self.K,self.K],[self.C,self.Y,self.C,self.Y,self.Y,self.K,self.M,self.K,self.M,self.K,self.W,self.K,self.W,self.K,self.W,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.B:
+          temp = np.array([[self.M,self.C,self.M,self.C,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.W,self.K,self.W,self.K,self.K],[self.C,self.M,self.C,self.M,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.W,self.K,self.W,self.K,self.W,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.Y:
+          temp = np.array([[self.Y,self.W,self.Y,self.W,self.Y,self.W,self.K,self.C,self.K,self.C,self.K,self.M,self.K,self.M,self.K,self.K],[self.W,self.Y,self.W,self.Y,self.W,self.Y,self.C,self.K,self.C,self.K,self.M,self.K,self.M,self.K,self.K,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.M:
+          temp = np.array([[self.M,self.W,self.M,self.W,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.C,self.K,self.C,self.K,self.K,self.K],[self.W,self.M,self.W,self.M,self.W,self.K,self.Y,self.K,self.Y,self.K,self.K,self.C,self.K,self.C,self.K,self.Y]])
+          return temp[:, np.random.permutation(temp.shape[1])]
+        if c==self.C:
+          temp = np.array([[self.C,self.W,self.C,self.W,self.W,self.Y,self.K,self.Y,self.K,self.Y,self.K,self.M,self.K,self.M,self.K,self.K],[self.W,self.C,self.W,self.C,self.W,self.K,self.Y,self.K,self.Y,self.K,self.M,self.K,self.M,self.K,self.Y,self.K]])
+          return temp[:, np.random.permutation(temp.shape[1])]
 
     def tone_remover(self,pixel):
         r, g, b = pixel
@@ -78,7 +70,9 @@ class ImageEncrypt:
         for x in range(p.shape[0]):
             for y in range(p.shape[1]):
                 m = self.mat16([p[x][y][0], p[x][y][1], p[x][y][2]])
-                # print(m)
+                if m is None:
+                    print(m, x,y, p[x][y][0], p[x][y][1], p[x][y][2])
+                
                 for i in range(4):
                     for j in range(4):
                         im1[4 * x + i][4 * y + j] = m[0][4 * i + j]

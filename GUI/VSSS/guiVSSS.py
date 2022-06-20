@@ -4,7 +4,7 @@
 
 
 from pathlib import Path
-
+import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Label, Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel, filedialog, messagebox
@@ -30,7 +30,7 @@ def guiVSSS(window):
         global pathMainImage
         pathMainImage= filedialog.askopenfilename(filetypes=(("png files", "*.png"),(("jpg files", "*.jpg"))))
         if(pathMainImage) :
-            messagebox.showinfo("", "Se cargo la imagen")
+            messagebox.showinfo("", "Se cargó la imagen")
             openWindow('Imagen Principal',pathMainImage)
         else:
             messagebox.showwarning("", "No se ha cargado la imagen")
@@ -40,7 +40,7 @@ def guiVSSS(window):
         global pathFirstTransp
         pathFirstTransp= filedialog.askopenfilename(filetypes=(("png files", "*.png"),(("jpg files", "*.jpg"))))
         if(pathFirstTransp) :
-            messagebox.showinfo("", "Se cargo la transparencia 1")
+            messagebox.showinfo("", "Se cargó la transparencia 1")
             openWindow('Transparencia 1',pathFirstTransp)
             # mainLabel.pack()
         else:
@@ -51,7 +51,7 @@ def guiVSSS(window):
         global pathSecondTransp
         pathSecondTransp= filedialog.askopenfilename(filetypes=(("png files", "*.png"),(("jpg files", "*.jpg"))))
         if(pathSecondTransp) :
-            messagebox.showinfo("", "Se cargo la transparencia 2")
+            messagebox.showinfo("", "Se cargó la transparencia 2")
             openWindow('Transparencia 2',pathSecondTransp)
             # mainLabel.pack()
         else:
@@ -65,21 +65,26 @@ def guiVSSS(window):
     
         newWindow.geometry("300x300")
     
-        img_=ImageTk.PhotoImage(Image.open(path_))
-        label=Label(newWindow,image=img_,width=256,height=256)
+        img_=ImageTk.PhotoImage(Image.open(path_).resize((300,300),Image.ANTIALIAS))
+        label=Label(newWindow,image=img_,width=300,height=300)
         label.pack()
         newWindow.mainloop()
         # mainLabel.pack()
 
     def generateTransp():
         im1,im2 = imgEncr.encoder(pathMainImage)
-        cv2.imwrite('img1.jpg', im1)
-        cv2.imwrite('img2.jpg', im2)
+        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img1.jpg', im1)
+        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img2.jpg', im2)
+        messagebox.showinfo("", "Las transparencias se han generado en la ubicación del archivo")
+        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_img1.jpg')
+        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_img2.jpg')
 
 
     def overlayImages():
         result = imgEncr.desencoder(pathFirstTransp, pathSecondTransp)
-        cv2.imwrite('result.jpg', result)
+        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.jpg', result)
+        messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
+        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_result.jpg')
 
     canvas = Canvas(
         window,
