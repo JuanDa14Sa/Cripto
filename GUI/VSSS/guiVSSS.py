@@ -71,10 +71,27 @@ def guiVSSS(window):
         newWindow.mainloop()
         # mainLabel.pack()
 
+    def openWindow2(title_,path_):
+        newWindow = Toplevel(window)
+        newWindow.title(title_)
+    
+        newWindow.geometry("300x300")
+    
+        img_=ImageTk.PhotoImage(Image.open(path_,'rbg').resize((300,300),Image.ANTIALIAS))
+        label=Label(newWindow,image=img_,width=300,height=300)
+        label.pack()
+        newWindow.mainloop()
+        # mainLabel.pack()
+
     def generateTransp():
         im1,im2 = imgEncr.encoder(pathMainImage)
-        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img1.jpg', im1)
-        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img2.jpg', im2)
+        #cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_midresult.png', imgEncr.decoder(im1,im2))
+        #cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img1.png', cv2.cvtColor(im1, cv2.COLOR_BGR2RGB))
+        img = Image.fromarray(im1, 'RGB')
+        img.save(os.path.splitext(pathMainImage)[0]+'_img1.png')
+        img2 = Image.fromarray(im2, 'RGB')
+        img2.save(os.path.splitext(pathMainImage)[0]+'_img2.png')
+        #cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img2.png', cv2.cvtColor(im2, cv2.COLOR_BGR2RGB))
         messagebox.showinfo("", "Las transparencias se han generado en la ubicación del archivo")
         # openWindow('Transparencia 1',os.path.splitext(pathMainImage)[0]+'_img1.jpg')
         # openWindow('Transparencia 2',os.path.splitext(pathMainImage)[1]+'_img2.jpg')
@@ -85,9 +102,9 @@ def guiVSSS(window):
             messagebox.showwarning("", "No se ha cargado la transparencia")
             return
         result = imgEncr.desencoder(pathFirstTransp, pathSecondTransp)
-        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.jpg', result)
+        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.png', cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
         messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
-        openWindow('Resultado',os.path.splitext(pathMainImage)[0]+'_result.jpg')
+        openWindow('Resultado',os.path.splitext(pathMainImage)[0]+'_result.png')
 
     canvas = Canvas(
         window,
