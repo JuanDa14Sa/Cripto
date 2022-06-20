@@ -76,15 +76,18 @@ def guiVSSS(window):
         cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img1.jpg', im1)
         cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_img2.jpg', im2)
         messagebox.showinfo("", "Las transparencias se han generado en la ubicación del archivo")
-        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_img1.jpg')
-        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_img2.jpg')
+        # openWindow('Transparencia 1',os.path.splitext(pathMainImage)[0]+'_img1.jpg')
+        # openWindow('Transparencia 2',os.path.splitext(pathMainImage)[1]+'_img2.jpg')
 
 
     def overlayImages():
+        if not(pathFirstTransp and pathSecondTransp):
+            messagebox.showwarning("", "No se ha cargado la transparencia")
+            return
         result = imgEncr.desencoder(pathFirstTransp, pathSecondTransp)
         cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.jpg', result)
         messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
-        openWindow('Transparencia 2',os.path.splitext(pathMainImage)[0]+'_result.jpg')
+        openWindow('Resultado',os.path.splitext(pathMainImage)[0]+'_result.jpg')
 
     canvas = Canvas(
         window,
