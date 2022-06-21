@@ -19,6 +19,7 @@ def guiVSSS(window):
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
     imgEncr = ImageEncrypt()
+    
 
 
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5
@@ -71,18 +72,6 @@ def guiVSSS(window):
         newWindow.mainloop()
         # mainLabel.pack()
 
-    def openWindow2(title_,path_):
-        newWindow = Toplevel(window)
-        newWindow.title(title_)
-    
-        newWindow.geometry("300x300")
-    
-        img_=ImageTk.PhotoImage(Image.open(path_,'rbg').resize((300,300),Image.ANTIALIAS))
-        label=Label(newWindow,image=img_,width=300,height=300)
-        label.pack()
-        newWindow.mainloop()
-        # mainLabel.pack()
-
     def generateTransp():
         im1,im2 = imgEncr.encoder(pathMainImage)
         #cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_midresult.png', imgEncr.decoder(im1,im2))
@@ -102,9 +91,18 @@ def guiVSSS(window):
             messagebox.showwarning("", "No se ha cargado la transparencia")
             return
         result = imgEncr.desencoder(pathFirstTransp, pathSecondTransp)
-        cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.png', cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
-        messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
-        openWindow('Resultado',os.path.splitext(pathMainImage)[0]+'_result.png')
+        try:
+            cv2.imwrite(os.path.splitext(pathMainImage)[0]+'_result.png', cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
+            messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
+            openWindow('Resultado',os.path.splitext(pathMainImage)[0]+'_result.png')
+        except AttributeError:
+            cv2.imwrite(os.path.splitext(pathFirstTransp)[0][:-1] +'_result.png', cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
+            messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
+            openWindow('Resultado',os.path.splitext(pathFirstTransp)[0][:-1] +'_result.png')
+        except NameError:
+            cv2.imwrite(os.path.splitext(pathFirstTransp)[0][:-1] +'_result.png', cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
+            messagebox.showinfo("", "Las imagen se ha revelado y guardado en la ubicación del archivo")
+            openWindow('Resultado',os.path.splitext(pathFirstTransp)[0][:-1] +'_result.png')
 
     canvas = Canvas(
         window,
