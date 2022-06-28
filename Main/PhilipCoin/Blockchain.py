@@ -3,8 +3,8 @@ import json
 from Crypto.Hash import SHA256
 import datetime as date
 # from Transaction import Transaction
-from Block import Block
-from User import User
+from Main.PhilipCoin.Block import Block
+from Main.PhilipCoin.User import User
 
 
 class BlockChain:
