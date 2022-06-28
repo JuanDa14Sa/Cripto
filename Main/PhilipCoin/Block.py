@@ -1,7 +1,7 @@
 from Crypto.Hash import SHA256
 import re
-from Transaction import Transaction
-from Vigenere import CripVigenere
+from Main.PhilipCoin.Transaction import Transaction
+from Main.PhilipCoin.Vigenere import CripVigenere
 import random
 
 class Block:
@@ -31,13 +31,13 @@ class Block:
         keys=[k.strip() for k in keys]
         num_sub=300
         paragraphs = [res[x:x+num_sub] for x in range(0, len(res)-num_sub, num_sub)]
-        to_decode=paragraphs[random.randint(0,len(paragraphs)-1)]
+        self.to_decode=paragraphs[random.randint(0,len(paragraphs)-1)]
         self.solution=random.choice(keys)
-        self.vige=CripVigenere(to_decode,self.solution)
+        self.vige=CripVigenere(self.to_decode,self.solution)
         self.vige2=CripVigenere(self.vige.encriptar(),self.solution)
 
     def test_problem(self, sol):
-        if self.solution == sol:
+        if self.to_decode == sol:
             self.hash = self.hash_block()
             return True
         else:

@@ -3,8 +3,8 @@ import json
 from Crypto.Hash import SHA256
 import datetime as date
 # from Transaction import Transaction
-from Block import Block
-from User import User
+from Main.PhilipCoin.Block import Block
+from Main.PhilipCoin.User import User
 
 
 class BlockChain:
@@ -38,7 +38,7 @@ class BlockChain:
     if len(self.pool) == 1:
       print('No transactions to mine')
       return 
-    elif index_pool<len(self.pool):
+    elif index_pool<len(self.pool) and index_pool!=0:
         block=self.pool[index_pool]
         if miner.mine_block(block, guess): 
           self.pool.pop(index_pool)
