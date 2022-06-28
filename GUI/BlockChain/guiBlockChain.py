@@ -19,7 +19,7 @@ from Main.PhilipCoin.Vigenere import CripVigenere
 def guiBlockChain(window):
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, userchoosen, userchoosen2
     global pool_index
-    pool_index=1
+    pool_index=0
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
@@ -48,9 +48,9 @@ def guiBlockChain(window):
 
     def next_block():
         global pool_index
-        pool_index+=1
-        if(pool_index>=len(blockchain.pool)):
-            pool_index=1
+        pool_index+=1%len(blockchain.pool)
+        # if(pool_index>=len(blockchain.pool)):
+        #     pool_index=1
 
     def toJson():
         blockchain.json_chain()
@@ -107,7 +107,7 @@ def guiBlockChain(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: [next_block(),print(pool_index)],
+        command=lambda: [next_block(),print(len(blockchain.pool)),print(pool_index)],
         relief="flat"
     )
     button_2.place(
@@ -143,7 +143,7 @@ def guiBlockChain(window):
             keys = []
             entry_1.delete(0,'end')
             key_index = 0
-            pool_index=1
+            pool_index=0
         else:
             messagebox.showinfo("", "No se pudo minar el bloque y Cosmo no ha recibido recompensa.")
 
