@@ -45,6 +45,8 @@ def guiBlockChain(window):
         for user in users:
             user.display_user_wallet()
         print("------------------------------")
+        print(len(blockchain.pool))
+        print("------------------------------")
 
     def next_block():
         global pool_index
