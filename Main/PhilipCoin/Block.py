@@ -34,6 +34,7 @@ class Block:
         self.to_decode=paragraphs[random.randint(0,len(paragraphs)-1)]
         self.solution=random.choice(keys)
         self.vige=CripVigenere(self.to_decode,self.solution)
+        self.problem = self.vige.encriptar()
         self.vige2=CripVigenere(self.vige.encriptar(),self.solution)
 
     def test_problem(self, sol):

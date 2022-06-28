@@ -37,19 +37,20 @@ class BlockChain:
   def mining_attempt(self, miner, guess, index_pool):
     if len(self.pool) == 1:
       print('No transactions to mine')
-      return 
+      return False
     elif index_pool<len(self.pool) and index_pool!=0:
         block=self.pool[index_pool]
         if miner.mine_block(block, guess): 
           self.pool.pop(index_pool)
           self.chain.append(block)
           self.nodes.add(miner.name)
-          return 
+          return True
         else: 
           print('Wrong guess')
-          return
+          return False
     else:
       print('Mining attempt failed')
+      return False
   
   def json_chain(self):
     info_chain=[]

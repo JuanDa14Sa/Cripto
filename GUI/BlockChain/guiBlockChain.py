@@ -135,9 +135,14 @@ def guiBlockChain(window):
     )
 
     def mine():
+        global pool_index,key_index,keys
         vig1 = CripVigenere(blockchain.pool[pool_index].problem,str(entry_1.get()))
-        if blockchain.pool[pool_index].test_problem(vig1.decrypt()):
+        if blockchain.mining_attempt(users[1],vig1.desencriptar(),pool_index):
             messagebox.showinfo("", "Bloque minado, Cosmo ha recibido 0.5 phillips") 
+            keys = []
+            entry_1.delete(0,'end')
+            key_index = 0
+            pool_index=1
         else:
             messagebox.showinfo("", "No se pudo minar el bloque y Cosmo no ha recibido recompensa.")
 
@@ -233,6 +238,7 @@ def guiBlockChain(window):
     )
 
     def next_key():
+        global key_index
         vig1 = CripVigenere(blockchain.pool[pool_index].problem,'')
         if entry_1.get() == '':
             key_index = 0
