@@ -6,6 +6,7 @@ import datetime as date
 from Main.PhilipCoin.Block import Block
 from Main.PhilipCoin.User import User
 
+
 class BlockChain:
   def __init__(self):
     self.chain = []

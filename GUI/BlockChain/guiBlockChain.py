@@ -8,7 +8,7 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 from tkinter import ttk
 import tkinter as tk
 from Main.PhilipCoin.Blockchain import BlockChain
@@ -21,16 +21,30 @@ def guiBlockChain(window):
     pool_index=1
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-#g
-    blockchain=BlockChain()    
-    users=[User('Timmy'),User('Cosmo'),User('Wanda')]
-  
+
+    blockchain = BlockChain()
+    users = [User('Timmy'), User('Cosmo'), User('Wanda')]
+    for user in users:
+        user.display_user_wallet()
+    print("------------------------------")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
-    def next_block():
+    def generateTransfer():
+        i = userchoosen.current()
+        j = userchoosen2.current()
+        user1 = users[userchoosen.current()]
+        user2 = users[userchoosen2.current()]
+        value = float(entry_2.get())
 
+        blockchain.transaction(user1, user2, value)
+        messagebox.showwarning("", "Transaccion exitosa")
+        for user in users:
+            user.display_user_wallet()
+        print("------------------------------")
+
+    def next_block():
         global pool_index
         pool_index+=1
         if(pool_index>=len(blockchain.pool)):
@@ -136,7 +150,7 @@ def guiBlockChain(window):
         image=button_image_5,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_5 clicked"),
+        command=lambda: generateTransfer(),
         relief="flat"
     )
     button_5.place(
