@@ -46,23 +46,33 @@ class BlockChain:
       return 
     else:
       print('Mining attempt failed')
+  
+  def json_chain(self):
+    info_chain=[]
+    for i in range(1,len(self.chain)):
+      for j in range(len(self.chain[i].data)):
+        info_chain.append('Block '+str(i)+' '+self.chain[i].data[j].info)
+    with open('Main\PhilipCoin\chain.json', 'w') as f:
+      json.dump(info_chain, f)  # Guarda la cadena en un archivo json
 
 blockchain=BlockChain()    
 users=[User('Timmy'),User('Cosmo'),User('Wanda')]
 blockchain.transaction(users[0], users[1], 1)
-print(len(blockchain.chain))
-print(len(blockchain.chain[-1].data))   
+# print(len(blockchain.chain))
+# print(len(blockchain.chain[-1].data))   
 blockchain.transaction(users[1], users[2], 2) 
 blockchain.transaction(users[2], users[0], 3) 
 print(len(blockchain.pool))  
-print(len(blockchain.chain))
+# print(len(blockchain.chain))
 users[0].display_user_wallet()
-blockchain.mining_attempt(users[0], 'bc')
+print(blockchain.pool[1].solution)
+blockchain.mining_attempt(users[0], blockchain.pool[1].solution)
 users[0].display_user_wallet()
-print(len(blockchain.pool))  
-# blockchain.mining_attempt(users[0], 'bc')
-# json_dump=json.dumps(blockchain.chain, sort_keys=True)
+blockchain.transaction(users[0], users[1], 4) 
+blockchain.transaction(users[1], users[2], 5) 
 
+
+# blockchain.json_chain()
 
 
 

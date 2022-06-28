@@ -7,7 +7,7 @@ class Transaction:
         self.reciever = reciever
         self.amount = amount
         self.timestamp = datetime.datetime.now()
-
+        self.info="Transaction from " + str(self.sender) + " to " + str(self.reciever.name) + " with amount " + str(self.amount) + " at " + str(self.timestamp)      
     def display_transaction(self):
         print("Sender: " + self.sender.name)
         print("Reciever: " + self.reciever.name)
