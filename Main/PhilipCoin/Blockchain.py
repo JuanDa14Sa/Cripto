@@ -34,16 +34,20 @@ class BlockChain:
     else:
       previus_block.add_transaction(tr)
   
-  def mining_attempt(self, miner, guess):
+  def mining_attempt(self, miner, guess, index_pool):
     if len(self.pool) == 1:
       print('No transactions to mine')
       return 
-    block=self.pool[1]
-    if miner.mine_block(block, guess): 
-      self.pool.pop(1)
-      self.chain.append(block)
-      self.nodes.add(miner.name)
-      return 
+    elif index_pool<len(self.pool):
+        block=self.pool[index_pool]
+        if miner.mine_block(block, guess): 
+          self.pool.pop(index_pool)
+          self.chain.append(block)
+          self.nodes.add(miner.name)
+          return 
+        else: 
+          print('Wrong guess')
+          return
     else:
       print('Mining attempt failed')
   
@@ -55,21 +59,21 @@ class BlockChain:
     with open('Main\PhilipCoin\chain.json', 'w') as f:
       json.dump(info_chain, f)  # Guarda la cadena en un archivo json
 
-blockchain=BlockChain()    
-users=[User('Timmy'),User('Cosmo'),User('Wanda')]
-blockchain.transaction(users[0], users[1], 1)
-# print(len(blockchain.chain))
-# print(len(blockchain.chain[-1].data))   
-blockchain.transaction(users[1], users[2], 2) 
-blockchain.transaction(users[2], users[0], 3) 
-print(len(blockchain.pool))  
-# print(len(blockchain.chain))
-users[0].display_user_wallet()
-print(blockchain.pool[1].solution)
-blockchain.mining_attempt(users[0], blockchain.pool[1].solution)
-users[0].display_user_wallet()
-blockchain.transaction(users[0], users[1], 4) 
-blockchain.transaction(users[1], users[2], 5) 
+# blockchain=BlockChain()    
+# users=[User('Timmy'),User('Cosmo'),User('Wanda')]
+# blockchain.transaction(users[0], users[1], 1)
+# # print(len(blockchain.chain))
+# # print(len(blockchain.chain[-1].data))   
+# blockchain.transaction(users[1], users[2], 2) 
+# blockchain.transaction(users[2], users[0], 3) 
+# print(len(blockchain.pool))  
+# # print(len(blockchain.chain))
+# users[0].display_user_wallet()
+# print(blockchain.pool[1].solution)
+# blockchain.mining_attempt(users[0], blockchain.pool[1].solution)
+# users[0].display_user_wallet()
+# blockchain.transaction(users[0], users[1], 4) 
+# blockchain.transaction(users[1], users[2], 5) 
 
 
 # blockchain.json_chain()

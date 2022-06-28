@@ -10,15 +10,24 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from tkinter import ttk
 import tkinter as tk
+from Main.PhilipCoin.Blockchain import BlockChain
+from Main.PhilipCoin.User import User
+
 
 def guiBlockChain(window):
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, userchoosen, userchoosen2
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
+    blockchain=BlockChain()    
+    users=[User('Timmy'),User('Cosmo'),User('Wanda')]
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
+
+    # def generate_passwords():
+    #     blockchain
+
 
 
     canvas = Canvas(
