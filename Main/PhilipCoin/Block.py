@@ -1,7 +1,7 @@
 from Crypto.Hash import SHA256
 import re
-from Transaction import Transaction
-from Vigenere import CripVigenere
+from Main.PhilipCoin.Transaction import Transaction
+from Main.PhilipCoin.Vigenere import CripVigenere
 import random
 
 class Block:

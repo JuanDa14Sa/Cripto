@@ -3,6 +3,7 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 
+from multiprocessing import pool
 from pathlib import Path
 
 # from tkinter import *
@@ -16,19 +17,24 @@ from Main.PhilipCoin.User import User
 
 def guiBlockChain(window):
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, userchoosen, userchoosen2
+    global pool_index
+    pool_index=1
     OUTPUT_PATH = Path(__file__).parent
     ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-
+#g
     blockchain=BlockChain()    
     users=[User('Timmy'),User('Cosmo'),User('Wanda')]
+  
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
-    # def generate_passwords():
-    #     blockchain
+    def next_block():
 
-
+        global pool_index
+        pool_index+=1
+        if(pool_index>=len(blockchain.pool)):
+            pool_index=1
 
     canvas = Canvas(
         window,
@@ -82,7 +88,7 @@ def guiBlockChain(window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: [next_block(),print(pool_index)],
         relief="flat"
     )
     button_2.place(
