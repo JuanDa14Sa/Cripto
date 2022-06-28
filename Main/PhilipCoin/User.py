@@ -1,3 +1,6 @@
+from Cripto.Main.PhilipCoin.Transaction import Transaction
+
+
 class User:
     def __init__(self, name, wallet=5):
         self.name = name # Identificador del usuario
@@ -25,4 +28,4 @@ class User:
 
     def display_user_transactions(self):
         print("User: " + self.name)
-        print("Transactions         
+        print("Transactions: " + str(self.transactions))         
