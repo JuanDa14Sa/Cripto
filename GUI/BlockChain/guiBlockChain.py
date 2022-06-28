@@ -36,8 +36,6 @@ def guiBlockChain(window):
         return ASSETS_PATH / Path(path)
 
     def generateTransfer():
-        i = userchoosen.current()
-        j = userchoosen2.current()
         user1 = users[userchoosen.current()]
         user2 = users[userchoosen2.current()]
         value = float(entry_2.get())
@@ -54,6 +52,9 @@ def guiBlockChain(window):
         if(pool_index>=len(blockchain.pool)):
             pool_index=1
 
+    def toJson():
+        blockchain.json_chain()
+        messagebox.showwarning("", "se genero el Json")
     canvas = Canvas(
         window,
         bg = "#E4E4EE",
@@ -90,7 +91,7 @@ def guiBlockChain(window):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: toJson(),
         relief="flat"
     )
     button_1.place(
