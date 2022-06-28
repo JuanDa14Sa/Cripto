@@ -7,11 +7,12 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import END, Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 from tkinter import ttk
 import tkinter as tk
 from Main.PhilipCoin.Blockchain import BlockChain
 from Main.PhilipCoin.User import User
+from Main.PhilipCoin.Vigenere import CripVigenere
 
 
 def guiBlockChain(window):
@@ -21,6 +22,9 @@ def guiBlockChain(window):
 
     blockchain=BlockChain()    
     users=[User('Timmy'),User('Cosmo'),User('Wanda')]
+
+    global keys
+    global key_index
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -92,13 +96,15 @@ def guiBlockChain(window):
         height=41.0
     )
 
+    
+
     button_image_3 = PhotoImage(
         file=relative_to_assets("button_3.png"))
     button_3 = Button(
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        command=lambda: next_key(),
         relief="flat"
     )
     button_3.place(
@@ -108,13 +114,20 @@ def guiBlockChain(window):
         height=41.0
     )
 
+    def mine():
+        vig1 = CripVigenere(blockchain.pool[pool_index].problem,str(entry_1.get()))
+        if blockchain.pool[pool_index].test_problem(vig1.decrypt()):
+            messagebox.showinfo("", "Bloque minado, Cosmo ha recibido 0.5 phillips") 
+        else:
+            messagebox.showinfo("", "No se pudo minar el bloque y Cosmo no ha recibido recompensa.")
+
     button_image_4 = PhotoImage(
         file=relative_to_assets("button_4.png"))
     button_4 = Button(
         image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4 clicked"),
+        command=lambda: mine(),
         relief="flat"
     )
     button_4.place(
@@ -199,6 +212,18 @@ def guiBlockChain(window):
         height=45.0
     )
 
+    def next_key():
+        vig1 = CripVigenere(blockchain.pool[pool_index].problem,'')
+        if entry_1.get() == '':
+            key_index = 0
+        entry_1.delete(0, 'end')
+        keys = vig1.criptanalisis()
+        if key_index == len(keys):
+            key_index = 0
+        else:
+            key_index += 1
+        entry_1.insert(0,vig1.criptanalisis_key(keys[key_index]))
+    
     entry_image_2 = PhotoImage(
         file=relative_to_assets("entry_2.png"))
     entry_bg_2 = canvas.create_image(
